@@ -1,7 +1,7 @@
 # Greek acrostics, simply
 
 Six small Python command-line scripts, one shared text helper, SQLite output,
-and no Python dependencies. Requires Python 3.10+ and Git. Everything runs locally.
+and no Python dependencies. Requires Python 3.9+ and Git. Everything runs locally.
 The existing research bundle and Claude project are not inputs that these scripts modify.
 
 ## Run on this Mini
@@ -192,3 +192,27 @@ rules. Reverse position 2 has a rule replay but no archived table. The current
 parser deliberately changes boundaries and readings; do not expect identical
 candidate counts, vocabulary or scores. Every removed candidate is classified.
 The original research, databases, paper and Claude source were left untouched.
+
+## Local viewer
+
+```sh
+cd ~/a/acrostics-simple
+python3 viewer.py
+# Open http://127.0.0.1:8766 on this Mini; Ctrl-C stops the server.
+```
+
+The viewer reads `output/results.sqlite3` in SQLite read-only mode. It binds
+only to 127.0.0.1, has no remote assets or dependencies, and does not edit results.
+Search by Greek word, author, title or citation; filter position/direction, sort,
+then select a row to read the original passage and marked normalized letters.
+The Isopsephy tab shows complete poem passages and both iota conventions.
+
+After a new scan in `output/research.sqlite3`, archive the old compact snapshot
+and export a fresh one with `python3 tests/save_snapshot.py`. The exporter refuses
+to replace an existing snapshot. This is a static result snapshot: the viewer
+does not silently recompute the corpus or run searches on the server.
+
+The UI is a separate second Git commit. API/filter/sort/read-only tests and
+JavaScript syntax checks passed. Visual browser testing was blocked because the
+Mini was locked and no browser surface was available to the test tools; no
+screenshot-level or mobile-rendering verification is claimed.

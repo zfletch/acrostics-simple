@@ -122,5 +122,14 @@ the larger full corpus database and downloaded repositories remain local and
 are excluded from Git and the compact bundle. `schema.sql` documents the full DB.
 
 The first local Git commit contains this working scanner baseline and SQL
-outputs. A later, separate commit will add only the local viewer and its tests
+outputs. A separate second commit adds the local viewer and its tests
 and documentation. No remote is configured for the simplified project.
+
+
+The viewer's four database behavior tests (search/filter, sort/pagination,
+AP8.39 display payload, and query safety/read-only enforcement) pass alongside
+all 12 core fixture tests, for 16 total. `node --check viewer/app.js` also passes.
+Live local HTTP endpoints are checked separately. The only outstanding QA limit
+is visual browser inspection: the Mini was locked, automatic unlock failed, and
+the computer-use tool reported no available browser. No existing browser tab was
+changed. This is a visual validation limit, not a scanner or SQLite blocker.

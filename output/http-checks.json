@@ -1,0 +1,16 @@
+{
+  "root": 200,
+  "static_assets": 200,
+  "stats": {
+    "acrostics": 27470,
+    "isopsephy": 20,
+    "positions": [
+      1,
+      2
+    ]
+  },
+  "Greek_search": "passed",
+  "acrostic_passage": "ΕΡΑΣΑΙ (6 lines)",
+  "AP8.39": "6903/6903; 6903/6913 (4 lines)",
+  "visual_browser_check": "blocked: Mac locked; no browser surface available"
+}
