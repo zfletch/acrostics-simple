@@ -212,7 +212,24 @@ and export a fresh one with `python3 tests/save_snapshot.py`. The exporter refus
 to replace an existing snapshot. This is a static result snapshot: the viewer
 does not silently recompute the corpus or run searches on the server.
 
-The UI is a separate second Git commit. API/filter/sort/read-only tests and
-JavaScript syntax checks passed. Visual browser testing was blocked because the
-Mini was locked and no browser surface was available to the test tools; no
-screenshot-level or mobile-rendering verification is claimed.
+The UI is a separate second Git commit. A third follow-up commit fixes a
+malformed Forward menu option and widens mobile controls, after headless testing.
+Both earlier commits are preserved. All 17 core/viewer tests pass, as do the
+JavaScript syntax check and the optional headless browser checks.
+
+The computer-use in-app browser was unavailable; its browser inventory was empty,
+and native app discovery reported the Mac locked. After an explicit request for
+headless checks, the existing Playwright installation and cached Chromium were
+used in a fresh headless context with `chromiumSandbox:true`, without accessing
+the desktop session. Desktop (1365 px) and mobile (390 px) screenshots were
+captured and inspected. Search, direction/position filters, paging, score order,
+forward/reverse highlights and AP8.39 totals pass, with no horizontal overflow
+or JavaScript errors. See `output/headless/`.
+
+The optional browser check requires a separately installed Playwright package
+and cached browser; neither is a dependency of the six scripts or viewer:
+
+```sh
+# Keep the local viewer running first. Use an existing Playwright installation.
+PLAYWRIGHT_PATH=/absolute/path/to/playwright-core node tests/headless_viewer.cjs
+```

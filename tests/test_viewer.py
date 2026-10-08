@@ -2,6 +2,7 @@
 from pathlib import Path
 import sqlite3
 import unittest
+from html.parser import HTMLParser
 from viewer import connect, results
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -11,6 +12,25 @@ class ViewerTests(unittest.TestCase):
     def setUp(self):
         self.db = connect(ROOT / 'output/results.sqlite3')
         self.addCleanup(self.db.close)
+
+    def test_direction_menu_contains_both_options(self):
+        class Options(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.inside = False
+                self.values = []
+            def handle_starttag(self, tag, attrs):
+                attrs = dict(attrs)
+                if tag == 'select':
+                    self.inside = attrs.get('id') == 'direction'
+                if tag == 'option' and self.inside:
+                    self.values.append(attrs.get('value'))
+            def handle_endtag(self, tag):
+                if tag == 'select':
+                    self.inside = False
+        parser = Options()
+        parser.feed((ROOT / 'viewer/index.html').read_text())
+        self.assertEqual(parser.values, ['', 'forward', 'reverse'])
 
     def test_search_and_direction(self):
         data = results(self.db, {'q': 'ἐράσαι', 'direction': 'forward', 'position': '2'})

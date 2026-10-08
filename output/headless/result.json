@@ -1,0 +1,33 @@
+{
+  "browser": "153.0.8010.12",
+  "mode": "separate headless Chromium, fresh context, chromiumSandbox:true",
+  "desktop": {
+    "width": 1365,
+    "scrollWidth": 1365
+  },
+  "mobile": {
+    "width": 390,
+    "scrollWidth": 390
+  },
+  "checks": [
+    "initial counts",
+    "50-row paging",
+    "descending score",
+    "next/previous page",
+    "accented Greek search",
+    "direction/position filters",
+    "forward highlights",
+    "reverse highlights",
+    "empty search",
+    "AP8.39 totals",
+    "mobile selection",
+    "no horizontal overflow",
+    "no JavaScript page errors"
+  ],
+  "screenshots": [
+    "desktop-helen.png",
+    "desktop-ap8-39.png",
+    "mobile-helen.png"
+  ],
+  "pageErrors": []
+}

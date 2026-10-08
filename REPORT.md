@@ -127,9 +127,25 @@ and documentation. No remote is configured for the simplified project.
 
 
 The viewer's four database behavior tests (search/filter, sort/pagination,
-AP8.39 display payload, and query safety/read-only enforcement) pass alongside
-all 12 core fixture tests, for 16 total. `node --check viewer/app.js` also passes.
-Live local HTTP endpoints are checked separately. The only outstanding QA limit
-is visual browser inspection: the Mini was locked, automatic unlock failed, and
-the computer-use tool reported no available browser. No existing browser tab was
-changed. This is a visual validation limit, not a scanner or SQLite blocker.
+AP8.39 display payload, and query safety/read-only enforcement), a direction-menu
+markup regression test, and all 12 core fixture tests pass: 17 total.
+`node --check viewer/app.js` and live local HTTP checks also pass.
+
+A subsequent explicitly requested headless check found and fixed the malformed
+Forward menu option. Screenshot inspection also led to wider mobile controls.
+A third additive Git commit records these fixes; the baseline and first viewer
+commits are unchanged. The supported computer-use route was blocked (in-app
+browser unavailable, browser inventory empty, native app discovery reporting the
+Mac locked). Existing Playwright with cached Chromium 153.0.8010.12 successfully
+ran in a fresh headless context with its sandbox enabled. It never unlocked or
+reused the desktop session.
+
+Desktop 1365 px and mobile 390 px rendering and screenshots were verified.
+Checks cover initial counts, 50-row pagination, score sorting, accented Greek
+search, direction/position filters, forward and reverse highlighted paths,
+empty results, AP8.39 with both iota conventions, mobile passage selection,
+absence of horizontal overflow, and absence of JavaScript errors. Evidence is
+in `output/headless/`; `tests/headless_viewer.cjs` is an optional development
+check requiring an existing Playwright installation. No scanner or database
+recomputation was needed; no remaining visual QA blocker applies to these two
+headless viewport checks. Native unlocked-desktop testing was not performed.
