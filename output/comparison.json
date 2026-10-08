@@ -1,0 +1,87 @@
+{
+  "historical_dictionary": {
+    "stored_4_to_12_forms": 173680,
+    "searchable": 84554
+  },
+  "new_dictionary": {
+    "all_lengths": 178761,
+    "searchable": 83891,
+    "lost_eligible": 990,
+    "gained_eligible": 327
+  },
+  "searches": {
+    "forward_1": {
+      "historical_rule_replay": 6255,
+      "archived_table_exactly_reproduced": true,
+      "current": 5202,
+      "shared": 5197,
+      "removed": {
+        "dictionary_count_changed": 160,
+        "stricter_division_or_quote_boundary": 414,
+        "unusable_or_split_line": 373,
+        "line_number_discontinuity": 106,
+        "selected_reading_or_normalization_changed": 5
+      },
+      "added": {
+        "selected_reading_or_normalization_changed": 5
+      },
+      "all_current_scores_verified": true
+    },
+    "reverse_1": {
+      "historical_rule_replay": 6203,
+      "archived_table_exactly_reproduced": true,
+      "current": 5161,
+      "shared": 5151,
+      "removed": {
+        "unusable_or_split_line": 339,
+        "stricter_division_or_quote_boundary": 453,
+        "dictionary_count_changed": 174,
+        "line_number_discontinuity": 80,
+        "selected_reading_or_normalization_changed": 5,
+        "excluded_editorial_or_nested_line": 1
+      },
+      "added": {
+        "selected_reading_or_normalization_changed": 9,
+        "new_dictionary_eligibility": 1
+      },
+      "all_current_scores_verified": true
+    },
+    "forward_2": {
+      "historical_rule_replay": 10041,
+      "archived_table_exactly_reproduced": true,
+      "current": 8548,
+      "shared": 8531,
+      "removed": {
+        "unusable_or_split_line": 437,
+        "stricter_division_or_quote_boundary": 747,
+        "dictionary_count_changed": 120,
+        "selected_reading_or_normalization_changed": 18,
+        "line_number_discontinuity": 188
+      },
+      "added": {
+        "selected_reading_or_normalization_changed": 14,
+        "new_dictionary_eligibility": 3
+      },
+      "all_current_scores_verified": true
+    },
+    "reverse_2": {
+      "historical_rule_replay": 10037,
+      "archived_table_exactly_reproduced": false,
+      "current": 8559,
+      "shared": 8544,
+      "removed": {
+        "unusable_or_split_line": 468,
+        "stricter_division_or_quote_boundary": 718,
+        "dictionary_count_changed": 130,
+        "line_number_discontinuity": 164,
+        "selected_reading_or_normalization_changed": 12,
+        "excluded_editorial_or_nested_line": 1
+      },
+      "added": {
+        "selected_reading_or_normalization_changed": 14,
+        "new_dictionary_eligibility": 1
+      },
+      "all_current_scores_verified": true
+    }
+  }
+}

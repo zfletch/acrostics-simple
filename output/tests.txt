@@ -1,0 +1,17 @@
+test_ap839_genuine_search_and_iota_conventions (test_simple.SimpleTests) ... ok
+test_editions_never_join_and_nonwords_not_emitted (test_simple.SimpleTests) ... ok
+test_equal_window_in_longer_poem_is_not_a_whole_poem_hit (test_simple.SimpleTests) ... ok
+test_forward_reverse_and_exact_score (test_simple.SimpleTests) ... ok
+test_new_isopsephic_fixture_is_found (test_simple.SimpleTests) ... ok
+test_normalization (test_simple.SimpleTests) ... ok
+test_numbering_gap_is_a_barrier (test_simple.SimpleTests) ... ok
+test_numerical_values_and_explicit_iota (test_simple.SimpleTests) ... ok
+test_short_line_is_a_barrier (test_simple.SimpleTests) ... ok
+test_units_gaps_and_invalid_lines_break_windows (test_simple.SimpleTests) ... ok
+test_unknown_database_is_not_modified (test_simple.SimpleTests) ... ok
+test_xml_boundaries_and_reading (test_simple.SimpleTests) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.006s
+
+OK

@@ -1,0 +1,12 @@
+Verified existing Python bundle (2026-10-08).
+score = -log2(product(column_probability[letter])) + 7*log2(1+context_frequency) + 4*(boundary_start+boundary_end) + .75*length - 1.5*log2(1+document_frequency).
+context_frequency = exact normalized token matches within 20 retained edition lines before/after the candidate (may span containers).
+column_probability = pooled position-specific letter count / total eligible lines, all editions.
+expected_exact_occurrences = product probability * eligible windows of same length. Not adjusted for all dictionary words, and score is heuristic, not a p-value.
+word_forms stores only lengths 4..12: 173680 forms, 1045462 tokens; 84554 eligible at corpus frequency>=2. The stored lines themselves contain 182583 distinct forms and 1579543 tokens across all lengths; short and long tokens are absent from word_forms. No external dictionary or lemmatization. Document frequency counts retained edition files, not independent works.
+Old roots, in this order:
+https://github.com/PerseusDL/canonical-greekLit.git @ 790c84289edbdbe289dd7b752bfea29f0af4299d
+https://github.com/OpenGreekAndLatin/First1KGreek.git @ 4c9c843d80ee94b4371f52add5f7d68bbfe7ba4c
+Claude snapshot differs: bcc5df0602f3b3fe6fefe1e1d575602a25ab1db6 / 03776b39f4047c5cff06f5296fae4b2bae4b08fb, also different parsing and dictionary.
+Relevant sources: ~/a/acrostics/regenerated/code/greek_acrostics/{database,fixed_column,reverse,normalization,tei}.py and read-only metadata/word_forms in reconciled.sqlite3; ~/a/acrostics/isopsephy/reproduce.py; ~/k/Acrostics/bin/tei2lines.rb and lib/technopaignia/devices/isopsephy.rb.
+Local memory only confirms ~/a is the OpenAI agent's directory and ~/k belongs to Claude. No relevant AGENTS.md or local custom skill was found in these project trees or ancestor directories.

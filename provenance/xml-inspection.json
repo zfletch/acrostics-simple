@@ -1,0 +1,901 @@
+{
+  "counts": {
+    "canonical-greekLit": 370,
+    "lines": 261040,
+    "First1KGreek": 373
+  },
+  "division_types": {
+    "edition": 743,
+    "letter": 7,
+    "section": 4512,
+    "book": 574,
+    "chapter": 4013,
+    "poem": 141,
+    "episode": 267,
+    "choral": 235,
+    "strophe": 687,
+    "antistrophe": 668,
+    "epode": 58,
+    "anapests": 251,
+    "lyric": 199,
+    "dialogue": 13,
+    "hexameter": 3,
+    "trochaic": 1,
+    "kommos": 1,
+    "close": 3,
+    "Jebb_page": 62,
+    "subsection": 110,
+    "Cast_List": 1,
+    "Prologue": 11,
+    "trochees": 65,
+    "iambics": 35,
+    "Parodos": 12,
+    "Lyric-Scene": 26,
+    "Parabasis": 13,
+    "epirrheme": 24,
+    "antepirrheme": 18,
+    "Episode": 46,
+    "Choral": 23,
+    "Agon": 12,
+    "Katakeleusmos": 2,
+    "Epirrheme": 2,
+    "Pnigos": 1,
+    "Antikatakeleusmos": 2,
+    "Antepirrheme": 1,
+    "Antipnigos": 1,
+    "Exodus": 10,
+    "dactyls": 4,
+    "tetrameters": 3,
+    "prelude": 10,
+    "katakeleusmenos": 9,
+    "pnigos": 23,
+    "antiprelude": 1,
+    "antikatakeleusmenos": 6,
+    "antipnigos": 7,
+    "parabasis": 8,
+    "epirrhema": 1,
+    "antepirrhema": 1,
+    "monody": 4,
+    "katakeleusmos": 3,
+    "antikatakeleusmos": 2,
+    "prologue": 1,
+    "proagon": 2,
+    "proepirrheme": 1,
+    "antiproepirrheme": 1,
+    "sphragis": 3,
+    "elegiacs": 2,
+    "epigram": 3439,
+    "bekker_page": 15,
+    "subchapter": 21,
+    "verse": 7780,
+    "ephymnion": 31,
+    "mesode": 9,
+    "iambic": 20,
+    "Book": 24,
+    "ephymn": 15,
+    "ephymn.": 2,
+    "textpart": 2,
+    "haeresis": 8,
+    "commentary": 4,
+    "appendix": 1,
+    "fragment": 1117,
+    "paragraph": 371,
+    "line": 2,
+    "part": 6,
+    "work": 12,
+    "volume": 7,
+    "page": 20,
+    "sentence": 2,
+    "folio": 5,
+    "epistle": 2,
+    "fabula": 1,
+    "source": 1,
+    "part ": 1,
+    "proode": 1
+  },
+  "examples": {
+    "edition": [
+      [
+        "tlg0059.tlg036.perseus-grc2.xml",
+        "urn:cts:greekLit:tlg0059.tlg036.perseus-grc2"
+      ],
+      [
+        "tlg0059.tlg007.perseus-grc2.xml",
+        "urn:cts:greekLit:tlg0059.tlg007.perseus-grc2"
+      ]
+    ],
+    "letter": [
+      [
+        "tlg0059.tlg036.perseus-grc2.xml",
+        "1"
+      ],
+      [
+        "tlg0059.tlg036.perseus-grc2.xml",
+        "3"
+      ]
+    ],
+    "section": [
+      [
+        "tlg0059.tlg036.perseus-grc2.xml",
+        "309"
+      ],
+      [
+        "tlg0059.tlg036.perseus-grc2.xml",
+        "310"
+      ]
+    ],
+    "book": [
+      [
+        "tlg0059.tlg030.perseus-grc2.xml",
+        "1"
+      ],
+      [
+        "tlg0059.tlg030.perseus-grc2.xml",
+        "2"
+      ]
+    ],
+    "chapter": [
+      [
+        "tlg0032.tlg007.perseus-grc2.xml",
+        "2"
+      ],
+      [
+        "tlg0032.tlg007.perseus-grc2.xml",
+        "3"
+      ]
+    ],
+    "poem": [
+      [
+        "tlg0035.tlg005.perseus-grc2.xml",
+        "4"
+      ],
+      [
+        "tlg0035.tlg005.perseus-grc2.xml",
+        "5"
+      ]
+    ],
+    "episode": [
+      [
+        "tlg0011.tlg007.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0011.tlg007.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "choral": [
+      [
+        "tlg0011.tlg007.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0011.tlg007.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "strophe": [
+      [
+        "tlg0011.tlg007.perseus-grc2.xml",
+        "1"
+      ],
+      [
+        "tlg0011.tlg007.perseus-grc2.xml",
+        "2"
+      ]
+    ],
+    "antistrophe": [
+      [
+        "tlg0011.tlg007.perseus-grc2.xml",
+        "1"
+      ],
+      [
+        "tlg0011.tlg007.perseus-grc2.xml",
+        "2"
+      ]
+    ],
+    "epode": [
+      [
+        "tlg0011.tlg007.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0011.tlg007.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "anapests": [
+      [
+        "tlg0011.tlg007.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0011.tlg001.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "lyric": [
+      [
+        "tlg0011.tlg001.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "dialogue": [
+      [
+        "tlg0011.tlg001.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0011.tlg003.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "hexameter": [
+      [
+        "tlg0011.tlg006.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0006.tlg008.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "trochaic": [
+      [
+        "tlg0011.tlg006.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "kommos": [
+      [
+        "tlg0011.tlg003.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "close": [
+      [
+        "tlg0011.tlg004.perseus-grc2.xml",
+        "trochaic"
+      ],
+      [
+        "tlg0085.tlg005.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "Jebb_page": [
+      [
+        "tlg0284.tlg024.perseus-grc2.xml",
+        "304"
+      ],
+      [
+        "tlg0284.tlg023.perseus-grc2.xml",
+        "280"
+      ]
+    ],
+    "subsection": [
+      [
+        "tlg0284.tlg056.perseus-grc2.xml",
+        "8"
+      ],
+      [
+        "tlg0284.tlg056.perseus-grc2.xml",
+        "5"
+      ]
+    ],
+    "Cast_List": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "Prologue": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg007.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "trochees": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "iambics": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "Parodos": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg007.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "Lyric-Scene": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "Parabasis": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg001.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "epirrheme": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg007.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "antepirrheme": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg007.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "Episode": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "Choral": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "Agon": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg007.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "Katakeleusmos": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg002.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "Epirrheme": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg002.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "Pnigos": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "Antikatakeleusmos": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg002.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "Antepirrheme": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "Antipnigos": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "Exodus": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg001.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "dactyls": [
+      [
+        "tlg0019.tlg009.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg005.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "tetrameters": [
+      [
+        "tlg0019.tlg007.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg007.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "prelude": [
+      [
+        "tlg0019.tlg007.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg001.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "katakeleusmenos": [
+      [
+        "tlg0019.tlg007.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg006.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "pnigos": [
+      [
+        "tlg0019.tlg007.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg001.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "antiprelude": [
+      [
+        "tlg0019.tlg007.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "antikatakeleusmenos": [
+      [
+        "tlg0019.tlg007.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg006.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "antipnigos": [
+      [
+        "tlg0019.tlg007.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg006.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "parabasis": [
+      [
+        "tlg0019.tlg001.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg006.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "epirrhema": [
+      [
+        "tlg0019.tlg001.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "antepirrhema": [
+      [
+        "tlg0019.tlg001.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "monody": [
+      [
+        "tlg0019.tlg006.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg006.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "katakeleusmos": [
+      [
+        "tlg0019.tlg006.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg005.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "antikatakeleusmos": [
+      [
+        "tlg0019.tlg006.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg002.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "prologue": [
+      [
+        "tlg0019.tlg008.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "proagon": [
+      [
+        "tlg0019.tlg003.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg002.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "proepirrheme": [
+      [
+        "tlg0019.tlg004.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "antiproepirrheme": [
+      [
+        "tlg0019.tlg004.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "sphragis": [
+      [
+        "tlg0019.tlg004.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0019.tlg002.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "elegiacs": [
+      [
+        "tlg0019.tlg005.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0006.tlg006.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "epigram": [
+      [
+        "tlg7000.tlg001.perseus-grc7.xml",
+        "1"
+      ],
+      [
+        "tlg7000.tlg001.perseus-grc7.xml",
+        "2"
+      ]
+    ],
+    "bekker_page": [
+      [
+        "tlg0086.tlg035.perseus-grc2.xml",
+        "1252b"
+      ],
+      [
+        "tlg0086.tlg035.perseus-grc2.xml",
+        "1253a"
+      ]
+    ],
+    "subchapter": [
+      [
+        "tlg0086.tlg034.perseus-grc2.xml",
+        "8"
+      ],
+      [
+        "tlg0086.tlg034.perseus-grc2.xml",
+        "13"
+      ]
+    ],
+    "verse": [
+      [
+        "tlg0031.tlg009.perseus-grc2.xml",
+        "27"
+      ],
+      [
+        "tlg0031.tlg007.perseus-grc2.xml",
+        "19"
+      ]
+    ],
+    "ephymnion": [
+      [
+        "tlg0006.tlg009.perseus-grc2.xml",
+        "1"
+      ],
+      [
+        "tlg0006.tlg009.perseus-grc2.xml",
+        "1"
+      ]
+    ],
+    "mesode": [
+      [
+        "tlg0006.tlg007.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0006.tlg001.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "iambic": [
+      [
+        "tlg0006.tlg008.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0006.tlg008.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "Book": [
+      [
+        "tlg0012.tlg001.perseus-grc2.xml",
+        "1"
+      ],
+      [
+        "tlg0012.tlg001.perseus-grc2.xml",
+        "2"
+      ]
+    ],
+    "ephymn": [
+      [
+        "tlg0085.tlg007.perseus-grc2.xml",
+        "1"
+      ],
+      [
+        "tlg0085.tlg007.perseus-grc2.xml",
+        "1"
+      ]
+    ],
+    "ephymn.": [
+      [
+        "tlg0085.tlg005.perseus-grc2.xml",
+        "1"
+      ],
+      [
+        "tlg0085.tlg005.perseus-grc2.xml",
+        "2"
+      ]
+    ],
+    "textpart": [
+      [
+        "tlg0013.tlg003.perseus-grc2.xml",
+        null
+      ],
+      [
+        "tlg0013.tlg003.perseus-grc2.xml",
+        null
+      ]
+    ],
+    "haeresis": [
+      [
+        "tlg2021.tlg002.opp-grc1.xml",
+        "31"
+      ],
+      [
+        "tlg2021.tlg002.opp-grc1.xml",
+        "34"
+      ]
+    ],
+    "commentary": [
+      [
+        "tlg0527.tlg048.opp.grc2.xml",
+        null
+      ],
+      [
+        "tlg4090.tlg001.1st1K-grc1.xml",
+        "jonah"
+      ]
+    ],
+    "appendix": [
+      [
+        "tlg0527.tlg048.opp.grc2.xml",
+        null
+      ]
+    ],
+    "fragment": [
+      [
+        "tlg0066.tlg001.1st1K-grc1.xml",
+        "1"
+      ],
+      [
+        "tlg0066.tlg001.1st1K-grc1.xml",
+        "3"
+      ]
+    ],
+    "paragraph": [
+      [
+        "tlg0066.tlg001.1st1K-grc1.xml",
+        "5"
+      ],
+      [
+        "tlg0066.tlg001.1st1K-grc1.xml",
+        "7"
+      ]
+    ],
+    "line": [
+      [
+        "tlg5034.tlg001a.perseus-grc1.xml",
+        "31"
+      ],
+      [
+        "tlg5023.tlg001.1st1K-grc1.xml",
+        "1"
+      ]
+    ],
+    "part": [
+      [
+        "tlg5034.tlg001a.perseus-grc1.xml",
+        "x"
+      ],
+      [
+        "tlg0087.tlg035.1st1K-grc1.xml",
+        "1"
+      ]
+    ],
+    "work": [
+      [
+        "tlg5029.tlg001.1st1K-grc1.xml",
+        "epigr"
+      ],
+      [
+        "tlg5029.tlg001.1st1K-grc1.xml",
+        "1"
+      ]
+    ],
+    "volume": [
+      [
+        "tlg5026.tlg007.1st1K-grc1.xml",
+        "1"
+      ],
+      [
+        "tlg5026.tlg007.1st1K-grc1.xml",
+        "2"
+      ]
+    ],
+    "page": [
+      [
+        "tlg0732.tlgX01.1st1K-grc1.xml",
+        "166b1"
+      ],
+      [
+        "tlg0087.tlg035.1st1K-grc1.xml",
+        "85"
+      ]
+    ],
+    "sentence": [
+      [
+        "tlg0732.tlg011.1st1K-grc1.xml",
+        "39"
+      ],
+      [
+        "tlg0732.tlg011.1st1K-grc1.xml",
+        "100"
+      ]
+    ],
+    "folio": [
+      [
+        "tlg4016.tlg005.1st1K-grc1.xml",
+        "229r"
+      ],
+      [
+        "tlg4016.tlg005.1st1K-grc1.xml",
+        "230v"
+      ]
+    ],
+    "epistle": [
+      [
+        "tlg1325.tlg001.1st1K-grc1.xml",
+        "7"
+      ],
+      [
+        "tlg1325.tlg001.1st1K-grc1.xml",
+        "29"
+      ]
+    ],
+    "fabula": [
+      [
+        "tlg0096.tlg002.1st1K-grc1.xml",
+        "211"
+      ]
+    ],
+    "source": [
+      [
+        "tlg2018.tlg011.1st1K-grc1.xml",
+        null
+      ]
+    ],
+    "part ": [
+      [
+        "tlg0594.tlg002.1st1K-grc1.xml",
+        "2"
+      ]
+    ],
+    "proode": [
+      [
+        "tlg0085.tlg002.1st1K-grc1.xml",
+        "1"
+      ]
+    ]
+  },
+  "errors": []
+}

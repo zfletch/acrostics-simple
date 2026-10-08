@@ -1,0 +1,55 @@
+{
+  "integrity_check": "ok",
+  "foreign_key_errors": 0,
+  "reading_paths_checked": 27470,
+  "known_examples": [
+    [
+      "forward",
+      1,
+      "ΛΕΠΤΗ",
+      "urn:cts:greekLit:tlg0653.tlg001.perseus-grc2",
+      "783",
+      "787"
+    ],
+    [
+      "reverse",
+      1,
+      "ΕΚΤΩΡ",
+      "urn:cts:greekLit:tlg0012.tlg001.perseus-grc2",
+      "6.511",
+      "6.515"
+    ],
+    [
+      "forward",
+      2,
+      "ΕΛΛΗΝΕΣ",
+      "urn:cts:greekLit:tlg2046.tlg001.perseus-grc2",
+      "7.502",
+      "7.508"
+    ],
+    [
+      "forward",
+      2,
+      "ΕΡΑΣΑΙ",
+      "urn:cts:greekLit:tlg0006.tlg014.perseus-grc2",
+      "3",
+      "8"
+    ]
+  ],
+  "ap8_39": {
+    "edition_id": 364,
+    "poem": 7788,
+    "group_size": 2,
+    "convention": "omit_only",
+    "omit_totals": "[6903, 6903]",
+    "count_totals": "[6903, 6913]",
+    "omit_lines": "[5026, 1877, 2599, 4304]",
+    "count_lines": "[5026, 1877, 2599, 4314]",
+    "urn": "urn:cts:greekLit:tlg7000.tlg001.perseus-grc7",
+    "title": "Ἀνθολογία, Volume II",
+    "author": "Gregorius Nazianzenus",
+    "citation": "8.39",
+    "kind": "epigram",
+    "source_path": "canonical-greekLit/data/tlg7000/tlg001/tlg7000.tlg001.perseus-grc7.xml"
+  }
+}

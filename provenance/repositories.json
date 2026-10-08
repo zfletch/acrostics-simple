@@ -1,0 +1,12 @@
+[
+  {
+    "directory": "canonical-greekLit",
+    "url": "https://github.com/PerseusDL/canonical-greekLit.git",
+    "commit": "790c84289edbdbe289dd7b752bfea29f0af4299d"
+  },
+  {
+    "directory": "First1KGreek",
+    "url": "https://github.com/OpenGreekAndLatin/First1KGreek.git",
+    "commit": "4c9c843d80ee94b4371f52add5f7d68bbfe7ba4c"
+  }
+]
