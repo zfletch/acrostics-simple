@@ -4,10 +4,29 @@ Six small Python command-line scripts, one shared text helper, SQLite output,
 and no Python dependencies. Requires Python 3.9+ and Git. Everything runs locally.
 The existing research bundle and Claude project are not inputs that these scripts modify.
 
-## Run on this Mini
+## Browse the included results
+
+Clone the private repository using an account with access:
 
 ```sh
-cd ~/a/acrostics-simple
+git clone https://github.com/zfletch/acrostics-simple.git
+cd acrostics-simple
+python3 viewer.py
+# Open http://127.0.0.1:8766 in a browser on this computer; Ctrl-C stops it.
+```
+
+Python 3.9+ is enough to run the viewer. No corpus download, database rebuild,
+package installation, or external web service is needed. The included
+`output/results.sqlite3` contains 27,470 acrostic candidates, 20 whole-poem
+isopsephy matches, and their passages. The viewer stays on the local computer.
+
+## Reproduce a scan
+
+Run these commands from the repository directory (on the original Mini,
+`~/a/acrostics-simple`). Downloading the pinned source repositories requires
+network access; subsequent processing runs locally.
+
+```sh
 python3 download_corpora.py
 python3 build_dictionary.py --database output/new-run.sqlite3
 python3 calculate_frequencies.py --database output/new-run.sqlite3 --position 1
@@ -21,20 +40,23 @@ python3 search_isopsephy.py --database output/new-run.sqlite3 --group-size 1
 python3 -m unittest discover -s tests -v
 ```
 
-The delivered run is `output/research.sqlite3`. The builder refuses an existing
-output filename; use a fresh filename for a rebuild. The other five processing
-commands only accept this project's database format. Searches replace only
+The original full processing run is `output/research.sqlite3` on the Mini; it
+is excluded from Git. A fresh clone includes `output/results.sqlite3`, the
+compact results snapshot, and the commands above create a separate full run at
+`output/new-run.sqlite3`. The builder refuses an existing output filename;
+use a fresh filename for each rebuild. The other five processing commands only
+accept this project's full processing database format. Searches replace only
 results for their own direction/position or group size. Recalculating a frequency
 position removes that position's old acrostic scores; rerun both searches afterwards.
 Any positive position is accepted; a line shorter than that position breaks a
 window, and a frequency calculation with no eligible lines stops with an error.
 
 ```sh
-sqlite3 -header -column output/research.sqlite3 \
+sqlite3 -header -column output/new-run.sqlite3 \
   "SELECT word,author,title,start_citation,end_citation,log2_score
    FROM acrostic_results WHERE direction='reverse' AND position=1
    ORDER BY log2_score DESC,word,edition_id,start_sequence LIMIT 20;"
-sqlite3 -header -column output/research.sqlite3 \
+sqlite3 -header -column output/new-run.sqlite3 \
   "SELECT author,citation,group_size,convention,omit_totals,count_totals
    FROM isopsephy_results ORDER BY urn,citation,group_size;"
 ```
@@ -42,6 +64,13 @@ sqlite3 -header -column output/research.sqlite3 \
 `output/results.sqlite3` is a smaller read-only-results snapshot, with the same
 result-view column names materialized as tables and a `passages` table. It omits
 the full corpus and dictionary. `output/schema.sql` is the processing DB schema.
+The optional SQL examples above require the `sqlite3` command-line client. To query the included snapshot instead,
+replace `output/new-run.sqlite3` with `output/results.sqlite3` in those queries.
+
+Downloaded `corpora/`, generated full databases (`output/research.sqlite3` and
+`output/new-*.sqlite3`), SQLite temporary files, Python caches, and local ZIP
+bundles are excluded by `.gitignore`. Source scripts, the viewer, the compact
+snapshot, provenance, comparison results, and validation evidence are tracked.
 
 ## The six scripts
 
@@ -187,6 +216,10 @@ python3 tests/compare_legacy.py \
   --database output/research.sqlite3 --output output
 ```
 
+The historical comparison also needs the separate original research database;
+it is optional and is not required for a fresh scan or the viewer. The recorded
+comparison evidence is included in this repository.
+
 Three archived candidate sets are reproduced exactly with their historical
 rules. Reverse position 2 has a rule replay but no archived table. The current
 parser deliberately changes boundaries and readings; do not expect identical
@@ -196,9 +229,9 @@ The original research, databases, paper and Claude source were left untouched.
 ## Local viewer
 
 ```sh
-cd ~/a/acrostics-simple
+# From the repository directory:
 python3 viewer.py
-# Open http://127.0.0.1:8766 on this Mini; Ctrl-C stops the server.
+# Open http://127.0.0.1:8766 on this computer; Ctrl-C stops the server.
 ```
 
 The viewer reads `output/results.sqlite3` in SQLite read-only mode. It binds
@@ -207,9 +240,13 @@ Search by Greek word, author, title or citation; filter position/direction, sort
 then select a row to read the original passage and marked normalized letters.
 The Isopsephy tab shows complete poem passages and both iota conventions.
 
-After a new scan in `output/research.sqlite3`, archive the old compact snapshot
-and export a fresh one with `python3 tests/save_snapshot.py`. The exporter refuses
-to replace an existing snapshot. This is a static result snapshot: the viewer
+The optional `tests/save_snapshot.py` exporter reads specifically from
+`output/research.sqlite3`. To use it in a fresh clone, choose that full-database
+filename for every processing command above instead of `output/new-run.sqlite3`.
+Archive the included compact snapshot before running the exporter; it refuses
+to replace an existing `output/results.sqlite3`. The exporter also regenerates
+`output/schema.sql` and two provenance manifests. Preserve any previous full run
+before choosing the same filename. This is a static result snapshot: the viewer
 does not silently recompute the corpus or run searches on the server.
 
 The UI is a separate second Git commit. A third follow-up commit fixes a
