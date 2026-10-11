@@ -150,7 +150,7 @@ class SimpleTests(unittest.TestCase):
         calculate(db, 1)
         self.assertEqual(forward(db, 1), 0)
 
-    def test_new_isopsephic_fixture_is_found(self):
+    def test_isopsephic_fixture_is_found(self):
         db = self.database()
         db.execute("INSERT INTO poems VALUES(1,8,'8','poem','Test','')")
         self.lines(db, ['αβ', 'γ'], poem=8)

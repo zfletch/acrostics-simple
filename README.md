@@ -1,12 +1,11 @@
-# Greek acrostics, simply
+# Greek acrostics and isopsephy
 
 Six small Python command-line scripts, one shared text helper, SQLite output,
-and no Python dependencies. Requires Python 3.9+ and Git. Everything runs locally.
-The existing research bundle and Claude project are not inputs that these scripts modify.
+and no third-party Python dependencies. Requires Python 3.9+ and Git. Everything runs locally.
 
 ## Browse the included results
 
-Clone the private repository using an account with access:
+Clone the repository:
 
 ```sh
 git clone https://github.com/zfletch/acrostics-simple.git
@@ -22,13 +21,18 @@ isopsephy matches, and their passages. The viewer stays on the local computer.
 
 ## Reproduce a scan
 
-Run these commands from the repository directory (on the original Mini,
-`~/a/acrostics-simple`). Downloading the pinned source repositories requires
-network access; subsequent processing runs locally.
+Run these commands from the repository directory. Python uses only its standard
+library, so there are no third-party Python packages to install. Python 3.9.6
+was used for the included results; Python 3.9+ is supported. Downloading the
+pinned source repositories requires Git and network access; subsequent processing
+runs locally. An optional virtual environment keeps the run isolated:
 
 ```sh
+python3 -m venv .venv
+. .venv/bin/activate
 python3 download_corpora.py
-python3 build_dictionary.py --database output/new-run.sqlite3
+python3 build_dictionary.py --database output/new-run.sqlite3 \
+  --min-length 4 --max-length 12 --min-frequency 2
 python3 calculate_frequencies.py --database output/new-run.sqlite3 --position 1
 python3 calculate_frequencies.py --database output/new-run.sqlite3 --position 2
 python3 search_forward.py --database output/new-run.sqlite3 --position 1
@@ -37,17 +41,23 @@ python3 search_forward.py --database output/new-run.sqlite3 --position 2
 python3 search_reverse.py --database output/new-run.sqlite3 --position 2
 python3 search_isopsephy.py --database output/new-run.sqlite3 --group-size 2
 python3 search_isopsephy.py --database output/new-run.sqlite3 --group-size 1
+python3 tests/verify_corpus.py --database output/new-run.sqlite3
 python3 -m unittest discover -s tests -v
 ```
 
-The original full processing run is `output/research.sqlite3` on the Mini; it
-is excluded from Git. A fresh clone includes `output/results.sqlite3`, the
-compact results snapshot, and the commands above create a separate full run at
-`output/new-run.sqlite3`. The builder refuses an existing output filename;
-use a fresh filename for each rebuild. The other five processing commands only
+A fresh clone includes `output/results.sqlite3`, a compact results snapshot.
+The commands above create a separate full processing database at
+`output/new-run.sqlite3`. To reuse already downloaded corpora, pass their parent
+directory to both `download_corpora.py --destination /path/to/corpora` and
+`build_dictionary.py --corpora /path/to/corpora`. The two named checkouts must
+be clean and at the exact revisions below. The downloader verifies existing
+checkouts without fetching them again; it refuses mismatched or modified sources.
+
+The builder refuses an existing output filename; use a fresh filename for each
+rebuild. The other five processing commands only
 accept this project's full processing database format. Searches replace only
 results for their own direction/position or group size. Recalculating a frequency
-position removes that position's old acrostic scores; rerun both searches afterwards.
+position removes that position's existing acrostic scores; rerun both searches afterwards.
 Any positive position is accepted; a line shorter than that position breaks a
 window, and a frequency calculation with no eligible lines stops with an error.
 
@@ -70,7 +80,7 @@ replace `output/new-run.sqlite3` with `output/results.sqlite3` in those queries.
 Downloaded `corpora/`, generated full databases (`output/research.sqlite3` and
 `output/new-*.sqlite3`), SQLite temporary files, Python caches, and local ZIP
 bundles are excluded by `.gitignore`. Source scripts, the viewer, the compact
-snapshot, provenance, comparison results, and validation evidence are tracked.
+snapshot, provenance and validation evidence are tracked.
 
 ## The six scripts
 
@@ -93,8 +103,8 @@ one authoritative list of revisions. Supporting verification scripts live in
 
 ## Exact corpus scope and provenance
 
-These are the revisions recorded in the original Python database's `metadata`
-and original `fetch_corpora.sh`, not the newer Claude corpus snapshot:
+The corpus revisions are pinned in `download_corpora.py` and recorded in each
+processing database’s `metadata`:
 
 | Repository | Commit |
 |---|---|
@@ -104,8 +114,9 @@ and original `fetch_corpora.sh`, not the newer Claude corpus snapshot:
 Scope is **all available encoded Greek verse lines in those snapshots**, including
 verse quoted in prose, alternate editions, and repository subdirectories. It is
 not all surviving Greek literature, and it is not the prose token population.
-Files use the original filename rule (`-grc` or `.grc`, `.xml`). Perseus is read
-first, then First1K, sorted within each; a repeated edition URN is kept once.
+Files must have an `.xml` extension and contain `-grc` or `.grc` in the filename.
+Perseus is read first, then First1K, sorted within each; a repeated edition URN
+is kept once.
 Different edition URNs remain separate. No poet, period, genre, primary-edition,
 minimum-work-size, or score selection is imposed. An edition with no eligible
 letters may remain in the audit but contributes zero to the frequency denominator.
@@ -127,7 +138,7 @@ source attribution. The compact distribution does not redistribute both reposito
 * Every encoded `div` and quotation container has its own unique boundary,
   including unnumbered divisions and repeated labels. This conservatively
   splits stanzas, dramatic sections and layout divisions too. It can miss
-  patterns spanning them; the scope is deliberately narrower than the old scan.
+  patterns spanning them; results are restricted to the encoded units.
 * Keep blank/unusable line records as barriers. Reject split-line pieces marked
   `I`, `M`, or `F` instead of pretending that each is a complete metrical line.
   Do not merge fragments or repair the text. Nested line structures are excluded.
@@ -175,9 +186,8 @@ There are **no** context, boundary, word-frequency or author factors. This model
 assumes independent letters. It strongly favors longer strings and rarer letters;
 it is not a probability of intention, a significance test or a correction for
 searching many words. `1/product(p)` can be recovered as `2**log2_score`.
-The historical heuristic is documented separately in `provenance/inspection-notes.txt`.
 
-## Isopsephy really searches poems
+## Whole-poem isopsephy
 
 Only explicit TEI `div`/`lg` types **`epigram` or `poem`** are treated as poem
 boundaries; these types occur in the downloaded sources. A book, quotation or
@@ -189,8 +199,8 @@ With `--group-size 2`, an entire even-length poem of at least four lines must
 have all successive two-line sums equal. These are line-pair groups; metre is
 not independently established. With `--group-size 1`, every line of an entire
 poem of at least two lines must have the same value. Any positive group size is
-allowed, with at least two complete groups; no sliding-window search or halves
-category is added. A poem with unsupported characters, explicit gaps, damage,
+allowed, with at least two complete groups. Only the entire poem is tested;
+partial windows are not searched. A poem with unsupported characters, explicit gaps, damage,
 supplied/unclear lines, split lines, nested poems, prose paragraphs or numbering
 discontinuities is skipped and recorded in `isopsephy_audit`.
 
@@ -205,26 +215,28 @@ fixture verifies pair totals **6,903 / 6,903** when the iota in `νηῷ` is omi
 and **6,903 / 6,913** when counted. Numerical equality alone establishes no
 intentionality, novelty, chronology or statistical significance.
 
-## Validation and previous results
+## Validation
 
-See `REPORT.md`, `output/tests.txt`, `output/comparison.json` and the full
-`output/candidate-differences.json`. To repeat the read-only historical comparison:
+`REPORT.md` records the results, exclusions and verification environment.
+The fixture suite runs without downloading corpora:
 
 ```sh
-python3 tests/compare_legacy.py \
-  --legacy ~/a/acrostics/regenerated/reconciled.sqlite3 \
-  --database output/research.sqlite3 --output output
+python3 -m unittest discover -s tests -v
 ```
 
-The historical comparison also needs the separate original research database;
-it is optional and is not required for a fresh scan or the viewer. The recorded
-comparison evidence is included in this repository.
+After a full run, verify every candidate's reading path, score and dictionary
+membership, check positional frequency counts, and test four documented corpus
+examples and AP 8.39:
 
-Three archived candidate sets are reproduced exactly with their historical
-rules. Reverse position 2 has a rule replay but no archived table. The current
-parser deliberately changes boundaries and readings; do not expect identical
-candidate counts, vocabulary or scores. Every removed candidate is classified.
-The original research, databases, paper and Claude source were left untouched.
+```sh
+python3 tests/verify_corpus.py --database output/new-run.sqlite3 \
+  --output output/new-verification.json
+```
+
+This also checks SQLite integrity and foreign keys. Assertions must be enabled
+(do not run verification scripts with Python's `-O` option).
+The fixture tests cover normalization, TEI choices and boundaries, positional
+matching, whole-poem arithmetic, and read-only viewer behavior.
 
 ## Local viewer
 
@@ -240,33 +252,39 @@ Search by Greek word, author, title or citation; filter position/direction, sort
 then select a row to read the original passage and marked normalized letters.
 The Isopsephy tab shows complete poem passages and both iota conventions.
 
-The optional `tests/save_snapshot.py` exporter reads specifically from
-`output/research.sqlite3`. To use it in a fresh clone, choose that full-database
-filename for every processing command above instead of `output/new-run.sqlite3`.
-Archive the included compact snapshot before running the exporter; it refuses
-to replace an existing `output/results.sqlite3`. The exporter also regenerates
-`output/schema.sql` and two provenance manifests. Preserve any previous full run
-before choosing the same filename. This is a static result snapshot: the viewer
-does not silently recompute the corpus or run searches on the server.
-
-The UI is a separate second Git commit. A third follow-up commit fixes a
-malformed Forward menu option and widens mobile controls, after headless testing.
-Both earlier commits are preserved. All 17 core/viewer tests pass, as do the
-JavaScript syntax check and the optional headless browser checks.
-
-The computer-use in-app browser was unavailable; its browser inventory was empty,
-and native app discovery reported the Mac locked. After an explicit request for
-headless checks, the existing Playwright installation and cached Chromium were
-used in a fresh headless context with `chromiumSandbox:true`, without accessing
-the desktop session. Desktop (1365 px) and mobile (390 px) screenshots were
-captured and inspected. Search, direction/position filters, paging, score order,
-forward/reverse highlights and AP8.39 totals pass, with no horizontal overflow
-or JavaScript errors. See `output/headless/`.
-
-The optional browser check requires a separately installed Playwright package
-and cached browser; neither is a dependency of the six scripts or viewer:
+To browse a fresh scan, export its results and provenance into a new directory:
 
 ```sh
-# Keep the local viewer running first. Use an existing Playwright installation.
-PLAYWRIGHT_PATH=/absolute/path/to/playwright-core node tests/headless_viewer.cjs
+python3 tests/save_snapshot.py --database output/new-run.sqlite3 \
+  --output-dir output/new-snapshot
+python3 tests/compare_snapshot.py --expected output/results.sqlite3 \
+  --actual output/new-snapshot/results.sqlite3
+python3 viewer.py --database output/new-snapshot/results.sqlite3
 ```
+
+The exporter requires a full processing database and refuses an existing output
+directory. It creates `results.sqlite3`, `schema.sql`, and `provenance/` manifests
+using that database's recorded source pins. It does not require corpus checkouts.
+The comparison checks every table's rows, including scores, passages, frequencies,
+source hashes and audits. The recorded Python version may differ and is reported
+separately; no scientific fields are excluded. SQLite file bytes can differ
+between SQLite versions even when rows agree. The viewer uses the exported
+snapshot without recomputing searches.
+
+The optional browser smoke check uses Node.js 20+ and Playwright solely for testing;
+neither is needed to run the scanner or viewer. The tested Playwright version
+is pinned in `package-lock.json`. Install it and its matching Chromium once:
+
+```sh
+npm ci
+npx playwright install chromium
+node --check viewer/app.js
+# Keep python3 viewer.py running in another terminal, then:
+node tests/headless_viewer.cjs
+```
+
+The smoke check covers desktop (1365 px) and mobile (390 px), searches,
+filters, pagination, forward/reverse highlights, both AP 8.39 totals, and
+JavaScript errors. It writes screenshots and a report to `output/new-headless/`.
+Set `VIEWER_URL` for a different loopback port or `HEADLESS_OUTPUT` for a different
+output directory. `output/headless/` contains the recorded reference check.

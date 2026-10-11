@@ -1,0 +1,7 @@
+{
+  "name": "acrostics-viewer-checks",
+  "private": true,
+  "description": "Optional browser tests; the scanner and viewer have no package dependencies",
+  "engines": {"node": ">=20"},
+  "devDependencies": {"playwright": "1.63.0"}
+}

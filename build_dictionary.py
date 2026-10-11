@@ -73,7 +73,7 @@ def main():
         if git('rev-parse', 'HEAD') != commit or git('status', '--porcelain'):
             p.error(f'{folder} is not the clean pinned revision')
     a.database.parent.mkdir(parents=True, exist_ok=True)
-    # Never unlink or overwrite a previous run, especially the original databases.
+    # Require a fresh filename so existing results cannot be overwritten.
     with a.database.open('xb'):
         pass
     db = sqlite3.connect(a.database)

@@ -1,32 +1,23 @@
-# Reproduction and validation — 8 October 2026
+# Results and validation
 
-The six scripts ran locally against the original Python project's pinned corpus
-commits. No model scan, paid service, public upload, GitHub push or deployment
-was used. The original research bundle and Claude source were read only.
+The included snapshot uses the two exact corpus revisions listed in the README,
+dictionary lengths 4–12, minimum token frequency 2, letter positions 1 and 2 in
+both directions, and isopsephy group sizes 2 and 1. All processing uses the
+Python standard library and local SQLite databases.
 
 ## Acrostics
 
-| Direction | Position | New matches | Historical rules | Shared matches |
-|---|---:|---:|---:|---:|
-| Forward | 1 | 5,202 | 6,255 | 5,197 |
-| Reverse | 1 | 5,161 | 6,203 | 5,151 |
-| Forward | 2 | 8,548 | 10,041 | 8,531 |
-| Reverse | 2 | 8,559 | 10,037 | 8,544 |
+| Direction | Position | Candidates |
+|---|---:|---:|
+| Forward | 1 | 5,202 |
+| Reverse | 1 | 5,161 |
+| Forward | 2 | 8,548 |
+| Reverse | 2 | 8,559 |
 
-**27,470** new candidates total. The first three historical-rule replays match
-every archived candidate key exactly. The last row is an independent replay of
-the historical rules on the frozen historical inputs: there is no archived
-reverse-position-2 table, and it is not claimed as historical verification.
-`output/candidate-differences.json` records every added/removed candidate and
-its first applicable explanation. No removal or addition is unexplained.
-
-The major reductions come from stopping at unnumbered/quotation boundaries,
-rejecting split or unusable lines, enforcing numbering continuity, and recounting
-the dictionary after editorial cleaning. A few changed readings or glyph
-normalizations add matches. The old heuristic score is deliberately not compared
-to the new score: the user explicitly replaced its context/boundary/length and
-document-frequency factors with the reciprocal positional-frequency product.
-All 27,470 new log scores were independently checked against the direct product.
+There are **27,470** candidates. Scores are the logarithm of the reciprocal
+positional-frequency product. Every score is independently checked against the
+direct product by `tests/verify_corpus.py`. Longer words and rarer letters score
+higher; the score is not a significance test or evidence of intention.
 
 Known text checks reproduce ΛΕΠΤΗ at Aratus 783–787, reverse ΕΚΤΩΡ at Iliad
 6.511–515, and second-letter ΕΛΛΗΝΕΣ at Quintus 7.502–508. These checks establish
@@ -42,19 +33,14 @@ Verse inside excluded editorial containers is not in this line table. Four
 files are rejected for lacking the supported single-edition structure; this is
 logged, not silently repaired. See `ingest_log` and the README's scope rules.
 
-The new dictionary stores 178,761 distinct forms across all lengths; **83,891**
-meet the chosen length 4–12 / frequency ≥2 filters. The historical dictionary
-stores **173,680 forms already restricted to length 4–12**, of which 84,554 meet
-the frequency threshold. Its stored lines contain 182,583 distinct forms and
-1,579,543 tokens across all lengths. This distinction corrects the initial
-assumption that its word_forms table contained every token length.
+The dictionary stores 178,761 distinct forms across all lengths; **83,891**
+meet the length 4–12 / frequency ≥2 filters. No lexical items are handpicked for
+inclusion. All available encoded Greek verse in the two pinned repositories
+is considered; this is not the entirety of surviving Greek literature or a
+corpus-wide prose-word frequency model. Alternate editions remain in the corpus
+and can increase both token and letter counts.
 
-990 formerly eligible words fail the new recount and 327 become eligible.
-No lexical items were handpicked for inclusion. All available encoded Greek
-verse in the two pinned repositories is considered; this is not the entirety
-of surviving Greek literature or a corpus-wide prose-word frequency model.
-
-## Genuine whole-poem isopsephy search
+## Whole-poem isopsephy search
 
 There are 3,599 explicitly encoded poem/epigram units. The group-size-2 search
 tests 2,431 whole poems and finds **17** equal successive line-pair totals.
@@ -83,12 +69,13 @@ AP 8.39 is found through the same loop as every other poem. Its sums are:
 | Count subscript | 6,903 | 6,913 |
 
 The difference is the iota in `νηῷ`. Ordinary written iota is never omitted.
-The source XML hash agrees with the latest independent AP8.39 reproduction.
+The exact edition, source revision and XML SHA-256 are recorded in
+`provenance/source-attribution.json`; `provenance/ap8-source.xml` retains its
+source TEI header and attribution.
 
-## The remembered Helen-related candidate
+## Inspecting a positional match
 
-A plausible lead is **ΕΡΑΣΑΙ**, second letters in Euripides, *Helen* 3–8,
-historical fixed-column candidate **1255**. The new scan retains it:
+**ΕΡΑΣΑΙ** is formed by the second letters in Euripides, *Helen* 3–8:
 
 | Line | Opening | Second letter |
 |---:|---|:---:|
@@ -99,53 +86,26 @@ historical fixed-column candidate **1255**. The new scan retains it:
 | 7 | Ψαμάθην | Α |
 | 8 | τίκτει | Ι |
 
-Other leads: **ΕΛΕΝΑ** at Nonnus, *Dionysiaca* 8.113–117 (old id 6341),
-and the separately reported **ΕΛΛΗΝΕΣ** (“Greeks”) at Quintus 7.502–508
-(old id 7518). ΕΛΛΗΝΕΣ is not Helen's name. No available note establishes
-which candidate the user remembers. No identity or literary significance is
-asserted from the recollection. `output/helen-leads.json` preserves exact rows.
+The source is `urn:cts:greekLit:tlg0006.tlg014.perseus-grc2`. This example is
+also a viewer fixture; its presence establishes a reading path, not literary
+significance. Search for ΕΡΑΣΑΙ and select forward direction, position 2 to
+inspect it in context.
 
-## Tests and delivery
+## Reproducibility checks
 
-12 independent, hand-sized fixture tests pass. They cover NFD and spacing iota,
-sigma folding, traditional numerical signs and elision punctuation, forward and
-reverse direction, a manually calculable score, position 2, short lines,
-edition/unit/sequence/numbering barriers, editorial choices and note exclusion,
-split lines, unrelated DB protection, a new numerical fixture, whole-poem versus
-window equality, and the AP8.39 arithmetic.
+The fixture suite covers NFD and spacing iota, sigma folding, traditional
+numerical signs and elision punctuation, forward/reverse directions and manually
+calculable scores, second letters, short lines, edition/unit/sequence/numbering
+barriers, TEI choices and note exclusion, split lines, unrelated-database
+protection, whole-poem equality, and AP 8.39 arithmetic. Viewer tests cover
+filtering, ordering, pagination, the direction menu and read-only queries.
 
-`tests/verify_corpus.py` verifies all 27,470 reading paths and four known corpus
-examples. SQLite integrity checks pass and the full database has no foreign-key
-violations. The portable results database contains 71,764 referenced line
-records and is about 20 MB before compression. It is committed with the source;
-the larger full corpus database and downloaded repositories remain local and
-are excluded from Git and the compact bundle. `schema.sql` documents the full DB.
+The full processing database has 71,764 line records referenced by results.
+The included compact snapshot stores these passages, all result rows, edition
+hashes, frequencies, ingestion and isopsephy audits, and source metadata. It is
+about 20 MB. The larger full processing database and downloaded repositories
+are excluded from Git. `output/schema.sql` documents the full database.
 
-The first local Git commit contains this working scanner baseline and SQL
-outputs. A separate second commit adds the local viewer and its tests
-and documentation. No remote is configured for the simplified project.
-
-
-The viewer's four database behavior tests (search/filter, sort/pagination,
-AP8.39 display payload, and query safety/read-only enforcement), a direction-menu
-markup regression test, and all 12 core fixture tests pass: 17 total.
-`node --check viewer/app.js` and live local HTTP checks also pass.
-
-A subsequent explicitly requested headless check found and fixed the malformed
-Forward menu option. Screenshot inspection also led to wider mobile controls.
-A third additive Git commit records these fixes; the baseline and first viewer
-commits are unchanged. The supported computer-use route was blocked (in-app
-browser unavailable, browser inventory empty, native app discovery reporting the
-Mac locked). Existing Playwright with cached Chromium 153.0.8010.12 successfully
-ran in a fresh headless context with its sandbox enabled. It never unlocked or
-reused the desktop session.
-
-Desktop 1365 px and mobile 390 px rendering and screenshots were verified.
-Checks cover initial counts, 50-row pagination, score sorting, accented Greek
-search, direction/position filters, forward and reverse highlighted paths,
-empty results, AP8.39 with both iota conventions, mobile passage selection,
-absence of horizontal overflow, and absence of JavaScript errors. Evidence is
-in `output/headless/`; `tests/headless_viewer.cjs` is an optional development
-check requiring an existing Playwright installation. No scanner or database
-recomputation was needed; no remaining visual QA blocker applies to these two
-headless viewport checks. Native unlocked-desktop testing was not performed.
+Validation commands and optional browser setup are in the README. See
+`output/run.log`, `output/corpus-verification.json`, `output/tests.txt` and
+`output/headless/result.json` for recorded evidence.

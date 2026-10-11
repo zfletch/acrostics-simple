@@ -6,6 +6,5 @@
     "xml_sha256": "ecfc070d931b6f9a09765a53eda1ff20731165a95d5b6d216025729021638d64",
     "source": "https://github.com/PerseusDL/canonical-greekLit/blob/790c84289edbdbe289dd7b752bfea29f0af4299d/data/tlg7000/tlg001/tlg7000.tlg001.perseus-grc7.xml",
     "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-  },
-  "old_pipeline": "Original research files were read without editing; reconstructed old candidate keys exactly match archived forward1, reverse1, forward2 tables."
+  }
 }

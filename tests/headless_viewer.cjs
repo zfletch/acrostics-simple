@@ -1,7 +1,7 @@
 const {chromium} = require(process.env.PLAYWRIGHT_PATH || 'playwright-core');
 const fs = require('fs');
 const path = require('path');
-const out = process.env.HEADLESS_OUTPUT || path.join(__dirname, '../output/headless');
+const out = process.env.HEADLESS_OUTPUT || path.join(__dirname, '../output/new-headless');
 fs.mkdirSync(out,{recursive:true});
 (async()=>{
  const browser = await chromium.launch({headless:true,chromiumSandbox:true});
@@ -10,7 +10,7 @@ fs.mkdirSync(out,{recursive:true});
  const assert=(condition,message)=>{if(!condition)throw new Error(message);};
  const waitCount=async text=>page.waitForFunction(t=>document.getElementById('result-count').textContent===t,text);
  const overflow=async()=>page.evaluate(()=>({width:innerWidth,scrollWidth:document.documentElement.scrollWidth}));
- await page.goto('http://127.0.0.1:8766',{waitUntil:'networkidle'});
+ await page.goto(process.env.VIEWER_URL || 'http://127.0.0.1:8766',{waitUntil:'networkidle'});
  await waitCount('27,470 results');
  assert(await page.locator('.row').count()===50,'50-row paging');
  assert(JSON.stringify(await page.locator('#direction option').evaluateAll(ns=>ns.map(n=>n.value)))===JSON.stringify(['','forward','reverse']),'all direction options');

@@ -68,7 +68,7 @@ def reading(element):
 
 
 def extract(path):
-    """Return edition metadata, explicit poems, lines, and parse audit counts.
+    """Return edition metadata, explicit poems, and line records.
 
     Every XML <l> has an ordinal. Rejected lines remain barriers. Every div
     (even an unnumbered one), quote, and poem-labelled lg has a distinct unit.
@@ -157,7 +157,7 @@ def extract(path):
 
 
 def open_database(path):
-    """Only open a database created by this project, never an old research DB."""
+    """Open a full processing database after checking its application identifier."""
     import sqlite3
     db = sqlite3.connect(path.resolve().as_uri() + '?mode=rw', uri=True)
     if db.execute('PRAGMA application_id').fetchone()[0] != 1094931027:

@@ -1,4 +1,4 @@
-{"database": "/Users/zfletch/Documents/Codex/2026-10-08/task/acrostics-simple/output/research.sqlite3", "editions": 732, "lines": 260885, "word_forms": 178761, "included_words": 83891}
+{"database": "output/new-run.sqlite3", "editions": 732, "lines": 260885, "word_forms": 178761, "included_words": 83891}
 {"position": 1, "eligible_lines": 253313, "short_lines": 0, "invalid_lines": 7572, "counts": {"Α": 32487, "Β": 3298, "Γ": 3763, "Δ": 9686, "Ε": 31072, "Ζ": 1616, "Η": 11842, "Θ": 4144, "Ι": 5073, "Κ": 27226, "Λ": 4622, "Μ": 10395, "Ν": 5559, "Ξ": 966, "Ο": 25365, "Π": 20171, "Ρ": 1421, "Σ": 9084, "Τ": 24228, "Υ": 2708, "Φ": 4373, "Χ": 4359, "Ψ": 813, "Ω": 9042}}
 {"position": 2, "eligible_lines": 253164, "short_lines": 149, "invalid_lines": 7572, "counts": {"Α": 39861, "Β": 730, "Γ": 3864, "Δ": 4556, "Ε": 20932, "Ζ": 466, "Η": 12926, "Θ": 1829, "Ι": 25584, "Κ": 5507, "Λ": 13561, "Μ": 6781, "Ν": 12053, "Ξ": 2179, "Ο": 21141, "Π": 8052, "Ρ": 14750, "Σ": 12975, "Τ": 6533, "Υ": 27230, "Φ": 2169, "Χ": 1905, "Ψ": 880, "Ω": 6700}}
 {"direction": "forward", "position": 1, "matches": 5202}

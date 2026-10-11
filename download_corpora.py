@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Download exactly the two repository revisions recorded by the old Python run."""
+"""Download the two pinned corpus revisions used by this study."""
 import argparse
 import json
 from pathlib import Path
