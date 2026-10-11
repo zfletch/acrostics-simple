@@ -51,7 +51,7 @@ Anthology; that is an observed result, not an anthology-only search filter.
 The two-line-group hits are AP 7.547, 7.668, 8.39, 9.12, 9.80, 9.123,
 9.344, 9.345, 9.350, 9.351, 9.353, 9.354, 11.70, 11.87, 11.187,
 11.199 and 12.20. Individual-line hits are AP 7.675, 9.348 and 13.31.
-The database retains attribution, edition, original passages, both sets of line
+The database retains attribution, edition, selected passages, both sets of line
 sums and group sums. These are numerical matches requiring scholarly review;
 there is no claim of discovery, intention, chronology or statistical significance.
 
@@ -109,3 +109,35 @@ are excluded from Git. `output/schema.sql` documents the full database.
 Validation commands and optional browser setup are in the README. See
 `output/run.log`, `output/corpus-verification.json`, `output/tests.txt` and
 `output/headless/result.json` for recorded evidence.
+
+The complete pipeline was rerun on 11 October 2026 in a fresh Git clone and
+Python virtual environment: Python 3.9.6, SQLite 3.51.0, macOS 26.6.2 arm64.
+Both pinned corpus checkouts were cloned locally and verified clean; the corpus
+network-download branch was not repeated. No third-party Python packages were
+installed. All dictionary, frequency, forward/reverse position-1/2, and
+isopsephy group-size-1/2 commands completed; no full processing step was skipped.
+
+All 19 fixture/viewer/export tests passed. All 27,470 reading paths and scores,
+both positional-frequency denominators, dictionary membership, source-order
+barriers, known examples and AP 8.39 totals passed the full-database checks.
+SQLite integrity and foreign keys passed. The exported snapshot agrees row for
+row with the included snapshot across every table; the recorded Python versions
+also agree. The exported schema and source manifests match their tracked copies.
+The snapshot was byte-identical in this environment, with SHA-256:
+
+```
+2b9e39e8a963064ed8c1db80d19222b7cde5e315a1e0a88e096d1234a6b4f21d
+```
+
+`output/reproduction.json` records the tested source commit, environment, table
+counts and hashes. Other Python/SQLite versions may produce different database
+file bytes; `tests/compare_snapshot.py` checks scientific table contents exactly
+and reports the Python version separately.
+
+Optional viewer checks used Node.js 26.10.0, locked Playwright 1.63.0 and cached
+Chromium 153.0.8010.12. Live HTTP checks passed for assets, result and passage
+queries, and error responses. Desktop (1365 px) and mobile (390 px) browser
+checks passed against both the included and rebuilt snapshots, including filters, sorting, pagination, Greek queries,
+forward/reverse highlights and both AP 8.39 totals, with no horizontal overflow
+or JavaScript errors. Recorded screenshots were inspected. These checks cover
+Chromium; other browsers and operating systems were not tested in this run.

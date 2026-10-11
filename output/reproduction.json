@@ -1,0 +1,41 @@
+{
+  "tables_equal": {
+    "acrostic_results": 27470,
+    "editions": 732,
+    "frequencies": 48,
+    "frequency_runs": 2,
+    "ingest_log": 2045,
+    "isopsephy_audit": 7198,
+    "isopsephy_results": 20,
+    "metadata": 6,
+    "passages": 71764
+  },
+  "python_versions": {
+    "expected": "3.9.6",
+    "actual": "3.9.6"
+  },
+  "date": "2026-10-11",
+  "source_commit": "2545cdf1f32ac7e9f6228b24dc3ba4bb6578dbe8",
+  "environment": {
+    "python": "3.9.6",
+    "sqlite": "3.51.0",
+    "os": "macOS 26.6.2",
+    "architecture": "arm64",
+    "node": "26.10.0",
+    "playwright": "1.63.0",
+    "chromium": "153.0.8010.12"
+  },
+  "isolation": "Fresh Git clone and Python venv; no third-party Python packages; npm ci from lockfile",
+  "corpus_acquisition": "Local Git clones of clean pinned sources; download_corpora.py reuse path verified; no corpus network download repeated",
+  "full_rebuild": true,
+  "tests_passed": 19,
+  "reading_paths_and_scores_checked": 27470,
+  "schema_and_source_manifests_equal": true,
+  "snapshot_sha256": "2b9e39e8a963064ed8c1db80d19222b7cde5e315a1e0a88e096d1234a6b4f21d",
+  "rebuilt_snapshot_sha256": "2b9e39e8a963064ed8c1db80d19222b7cde5e315a1e0a88e096d1234a6b4f21d",
+  "full_processing_database_sha256": "8f57a743d94a3a0871accb200573dbf5f48b47210ab47d8b46a5184d07eb266e",
+  "browser_checks": [
+    "included snapshot: desktop 1365px and mobile 390px",
+    "rebuilt snapshot: desktop 1365px and mobile 390px"
+  ]
+}

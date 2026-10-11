@@ -12,3 +12,4 @@ output/new-*.sqlite3
 .venv/
 node_modules/
 output/new-*/
+output/new-*.json

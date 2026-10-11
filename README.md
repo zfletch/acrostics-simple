@@ -1,7 +1,8 @@
 # Greek acrostics and isopsephy
 
 Six small Python command-line scripts, one shared text helper, SQLite output,
-and no third-party Python dependencies. Requires Python 3.9+ and Git. Everything runs locally.
+and no third-party Python dependencies. Requires Python 3.9+ and Git. Everything
+runs locally.
 
 ## Browse the included results
 
@@ -54,10 +55,10 @@ be clean and at the exact revisions below. The downloader verifies existing
 checkouts without fetching them again; it refuses mismatched or modified sources.
 
 The builder refuses an existing output filename; use a fresh filename for each
-rebuild. The other five processing commands only
-accept this project's full processing database format. Searches replace only
+rebuild. Frequency calculation and search commands only accept this project's full processing database format. Searches replace only
 results for their own direction/position or group size. Recalculating a frequency
-position removes that position's existing acrostic scores; rerun both searches afterwards.
+position removes that position's existing acrostic scores; rerun both searches
+afterwards.
 Any positive position is accepted; a line shorter than that position breaks a
 window, and a frequency calculation with no eligible lines stops with an error.
 
@@ -200,7 +201,8 @@ have all successive two-line sums equal. These are line-pair groups; metre is
 not independently established. With `--group-size 1`, every line of an entire
 poem of at least two lines must have the same value. Any positive group size is
 allowed, with at least two complete groups. Only the entire poem is tested;
-partial windows are not searched. A poem with unsupported characters, explicit gaps, damage,
+partial windows are not searched. A poem with unsupported characters, explicit
+gaps, damage,
 supplied/unclear lines, split lines, nested poems, prose paragraphs or numbering
 discontinuities is skipped and recorded in `isopsephy_audit`.
 
@@ -249,7 +251,7 @@ python3 viewer.py
 The viewer reads `output/results.sqlite3` in SQLite read-only mode. It binds
 only to 127.0.0.1, has no remote assets or dependencies, and does not edit results.
 Search by Greek word, author, title or citation; filter position/direction, sort,
-then select a row to read the original passage and marked normalized letters.
+then select a row to read the selected TEI reading and marked normalized letters.
 The Isopsephy tab shows complete poem passages and both iota conventions.
 
 To browse a fresh scan, export its results and provenance into a new directory:

@@ -1,6 +1,7 @@
 {
-  "root": 200,
-  "static_assets": 200,
+  "/": 200,
+  "/app.js": 200,
+  "/style.css": 200,
   "stats": {
     "acrostics": 27470,
     "isopsephy": 20,
@@ -9,7 +10,9 @@
       2
     ]
   },
-  "Greek_search": "passed",
-  "acrostic_passage": "\u0395\u03a1\u0391\u03a3\u0391\u0399 (6 lines)",
-  "AP8.39": "6903/6903; 6903/6913 (4 lines)"
+  "acrostic_passage": "ΕΡΑΣΑΙ (6 lines)",
+  "AP8.39": "6903/6903; 6903/6913 (4 lines)",
+  "/api/results?kind=invalid": 400,
+  "/missing": 404,
+  "unexpected_host": 403
 }
