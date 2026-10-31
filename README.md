@@ -4,6 +4,19 @@ Six small Python command-line scripts, one shared text helper, SQLite output,
 and no Python dependencies. Requires Python 3.9+ and Git. Everything runs locally.
 The existing research bundle and Claude project are not inputs that these scripts modify.
 
+## License
+
+The project's original source code is licensed under the [MIT License](LICENSE),
+copyright (c) 2026 Zachary Fletcher.
+
+The MIT License does not relicense third-party material, downloaded corpora, or
+source texts and excerpts included in provenance files or generated results.
+Those materials retain their upstream licenses and attribution requirements.
+See [source attribution](provenance/source-attribution.json), the preserved
+[Perseus license](provenance/canonical-greekLit-license.md) and
+[First1KGreek license](provenance/First1KGreek-license.md) (CC BY-SA 4.0), and
+individual TEI headers for applicable source terms.
+
 ## Browse the included results
 
 Clone the private repository using an account with access:
