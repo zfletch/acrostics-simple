@@ -9,3 +9,5 @@ output/new-*.sqlite3
 *.zip
 *.zip.sha256
 .library-transfer/
+_site/
+output/pages-browser/

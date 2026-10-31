@@ -1,0 +1,56 @@
+name: Publish results viewer
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'pages/**'
+      - 'viewer/style.css'
+      - 'build_pages.py'
+      - 'output/results.sqlite3'
+      - 'provenance/**'
+      - 'LICENSE'
+      - 'tests/test_pages.py'
+      - 'tests/static_data.mjs'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify snapshot and static query parity
+        run: python3 -m unittest discover -s tests -v
+      - name: Build the public file allowlist
+        run: python3 build_pages.py --output _site
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy the validated artifact
+        id: deployment
+        uses: actions/deploy-pages@v4

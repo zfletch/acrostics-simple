@@ -17,7 +17,19 @@ See [source attribution](provenance/source-attribution.json), the preserved
 [First1KGreek license](provenance/First1KGreek-license.md) (CC BY-SA 4.0), and
 individual TEI headers for applicable source terms.
 
-## Browse the included results
+## Browse the results online
+
+The public viewer is at **https://zfletch.github.io/acrostics-simple/**. The source
+repository stays private. The site publishes the existing 27,470 acrostic
+candidates, 20 whole-poem isopsephy results, their required Greek passages, and
+edition attribution. Its [methods and licenses](https://zfletch.github.io/acrostics-simple/methods.html)
+explain the scores, iota conventions, source pins, and text normalization.
+
+The website runs entirely in the browser. It does not need the Mini or a Python
+server. Passage files load by edition only when a result is selected. The local
+viewer below remains available independently.
+
+## Browse the included results locally
 
 Clone the private repository using an account with access:
 
@@ -32,6 +44,43 @@ Python 3.9+ is enough to run the viewer. No corpus download, database rebuild,
 package installation, or external web service is needed. The included
 `output/results.sqlite3` contains 27,470 acrostic candidates, 20 whole-poem
 isopsephy matches, and their passages. The viewer stays on the local computer.
+
+## Build or update the public viewer
+
+`build_pages.py` reads the committed snapshot in SQLite read-only mode and writes
+a **new** output directory. It refuses an existing destination. It neither runs
+the research pipeline nor exports the SQLite file, corpus repositories, private
+logs, or uploaded PDFs. Only the static viewer, result index, required passage
+files, attribution, and license notices enter the publication artifact.
+
+```sh
+python3 -m unittest discover -s tests -v
+python3 build_pages.py --output _site
+python3 -m http.server 8877 --bind 127.0.0.1 --directory _site
+# Open http://127.0.0.1:8877/; Ctrl-C stops this separate preview.
+```
+
+The query-parity test uses Node.js to compare the browser data layer with
+`viewer.py`; all exported rows and passage lines are also checked against SQLite.
+`tests/headless_pages.cjs` adds browser checks with an existing Playwright install
+(`PLAYWRIGHT_PATH` can name its module directory). Set `PAGES_URL` to the preview
+or live site URL, including its trailing slash. Its default URL is
+`http://127.0.0.1:8877/acrostics-simple/`; use a parent preview directory to test
+that project path. Browser screenshots and results go to ignored
+`output/pages-browser/` or `HEADLESS_OUTPUT`.
+
+The **Publish results viewer** Actions workflow builds from `main`, runs the
+Python and Node parity checks, uploads only `_site/`, and deploys to the
+`github-pages` environment. Relevant changes to `main` trigger publication; the
+workflow can also be dispatched manually. Updating the bundled snapshot publishes
+its findings, so review the intended public content before pushing such changes.
+The public manifest records the exact source commit and snapshot SHA-256.
+
+To roll back, revert the unwanted publication commit on `main` and deploy again.
+For this initial Pages addition the pre-publication reference is
+`7b91542cd1747ab2d633542d8015eb828c4d3270`. Disabling Pages withdraws the site
+without changing repository visibility or research files. The separate
+`publication-cleanup` branch is not part of this deployment.
 
 ## Reproduce a scan
 

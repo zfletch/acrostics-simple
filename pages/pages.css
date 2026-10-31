@@ -1,0 +1,10 @@
+/* MIT. Additions scoped to the static viewer; local viewer styles are unchanged. */
+h1{font-size:clamp(32px,4vw,54px);letter-spacing:-.025em}a{color:var(--accent)}
+.skip-link{position:absolute;left:12px;top:-80px;padding:10px;background:white;z-index:2}.skip-link:focus{top:12px}
+.row-top{flex-wrap:wrap}.row-source,.row-location,.word{overflow-wrap:anywhere}.desk>*{min-width:0}
+#retry,.retry-passage{border:1px solid var(--accent);background:#fffef9;padding:8px 14px;border-radius:5px;margin:10px 0}
+#result-error{font-size:14px;padding:12px 0}.row[aria-pressed=true]{background:#e7eee5;border-left-color:var(--accent)}
+.methods{max-width:900px}.methods h1{font-size:38px}.methods h2{margin-top:32px}.methods code{overflow-wrap:anywhere}
+.source-link{display:inline-block;margin-top:14px}.sum b{overflow-wrap:anywhere}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+@media(max-width:420px){header,main{padding-left:16px;padding-right:16px}.sums{grid-template-columns:1fr}.row small{float:none;display:block}}
