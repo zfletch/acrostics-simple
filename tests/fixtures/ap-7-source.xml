@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:TEI xmlns:ns0="http://www.tei-c.org/ns/1.0"><!--Verbatim selected units from PerseusDL/canonical-greekLit commit790c84289edbdbe289dd7b752bfea29f0af4299d; see original TEI header and project source attribution.--><ns0:teiHeader xml:lang="eng">
+        <ns0:fileDesc>
+            <ns0:titleStmt>
+                <ns0:title xml:lang="mul">Ἀνθολογία, Volume II</ns0:title>
+                <ns0:editor>William Roger Paton</ns0:editor>
+                <ns0:sponsor>Perseus Project, Tufts University</ns0:sponsor>
+                <ns0:principal>Gregory Crane</ns0:principal>
+                <ns0:respStmt>
+                    <ns0:resp>Prepared under the supervision of</ns0:resp>
+                    <ns0:name>Lisa Cerrato</ns0:name>
+                    <ns0:name>Rashmi Singhal</ns0:name>
+                    <ns0:name>Bridget Almas</ns0:name>
+                </ns0:respStmt>
+                <ns0:funder n="org:NEH">The National Endowment for the Humanities</ns0:funder>
+                <ns0:funder n="org:Google">Google Digital Humanities Awards Program</ns0:funder>
+            </ns0:titleStmt>
+            
+            <ns0:publicationStmt>
+                <ns0:publisher>Trustees of Tufts University</ns0:publisher>
+                <ns0:pubPlace>Medford, MA</ns0:pubPlace>
+                <ns0:authority>Perseus Digital Library Project</ns0:authority>
+                <ns0:date cert="medium" when="2010-12-13" type="release">Perseus 4.0</ns0:date>
+                <ns0:idno type="filename">tlg7000.tlg001.perseus-grc7.xml</ns0:idno>
+                <ns0:availability>
+                    <ns0:licence target="https://creativecommons.org/licenses/by-sa/4.0/">Available under a Creative Commons Attribution-ShareAlike 4.0 International License</ns0:licence>
+                </ns0:availability>
+            </ns0:publicationStmt>
+         
+            <ns0:sourceDesc>
+                <ns0:biblStruct>
+                    <ns0:monogr>
+                        <ns0:title>The Greek Anthology</ns0:title>
+                        <ns0:editor>William Roger Paton</ns0:editor>
+                        <ns0:imprint>
+                            <ns0:pubPlace>London</ns0:pubPlace>
+                            <ns0:publisher>William Heinemann Ltd.</ns0:publisher>
+                            <ns0:pubPlace>New York, NY</ns0:pubPlace>
+                            <ns0:publisher>G. P. Putnam's Sons</ns0:publisher>
+                            <ns0:date>1917</ns0:date>
+                        </ns0:imprint>
+                        <ns0:biblScope unit="volume">2</ns0:biblScope>
+                    </ns0:monogr>
+                    <ns0:ref target="https://archive.org/details/greekanthology02newyuoft/page/n13/mode/2up">The Internet Archive</ns0:ref>
+                </ns0:biblStruct>
+                
+            </ns0:sourceDesc>
+        </ns0:fileDesc>
+    
+<ns0:encodingDesc>
+<ns0:editorialDecl>
+<ns0:correction method="silent">
+<ns0:p>optical character recognition</ns0:p>
+</ns0:correction>
+</ns0:editorialDecl>
+    
+    <ns0:refsDecl n="CTS">
+        
+        <ns0:cRefPattern n="epigram" matchPattern="(\w+).(\w+)" replacementPattern="#xpath(/tei:TEI/tei:text/tei:body/tei:div/tei:div[@n='$1']/tei:div[@n='$2'])">
+            <ns0:p>This pointer pattern extracts book and epigram.</ns0:p>
+        </ns0:cRefPattern>
+        <ns0:cRefPattern n="book" matchPattern="(\w+)" replacementPattern="#xpath(/tei:TEI/tei:text/tei:body/tei:div/tei:div[@n='$1'])">
+            <ns0:p>This pointer pattern extracts book.</ns0:p>
+        </ns0:cRefPattern>
+    </ns0:refsDecl>
+</ns0:encodingDesc>
+        
+        <ns0:profileDesc>
+            <ns0:langUsage>
+                <ns0:language ident="grc">Greek</ns0:language>
+                <ns0:language ident="lat">Latin</ns0:language>
+                <ns0:language ident="eng">English</ns0:language>
+            </ns0:langUsage>
+        </ns0:profileDesc>
+        
+        <ns0:revisionDesc>
+            <ns0:change when="2025-01-13" who="Lisa Cerrato">Epidoc and CTS conversion and header review for best practices</ns0:change>
+            <ns0:change when="2010-06" who="RS">tagged and parsed</ns0:change>
+        </ns0:revisionDesc>
+    </ns0:teiHeader>
+    
+<ns0:text><ns0:body><ns0:div type="edition" xml:lang="grc" n="urn:cts:greekLit:tlg7000.tlg001.perseus-grc7"><ns0:div type="textpart" subtype="book" xml:base="urn:cts:greekLit:tlg7000.tlg001.perseus-grc7" n="7"><ns0:div type="textpart" subtype="epigram" xml:base="urn:cts:greekLit:tlg7000.tlg001.perseus-grc7:7" n="547">
+<ns0:docAuthor xml:lang="lat">
+<ns0:persName xml:lang="lat" key="tlg-1457">
+<ns0:foreign xml:lang="lat">Julius leonidas</ns0:foreign>
+</ns0:persName>
+</ns0:docAuthor>
+<ns0:l n="1">τὰν στάλαν ἐχάραξε Βιάνωρ οὐκ ἐπὶ ματρί,</ns0:l>
+<ns0:l n="2">οὐδʼ ἐπὶ τῷ γενέτᾳ, πότμον ὀφειλόμενον,</ns0:l>
+<ns0:l n="3">παρθενικᾷ δʼ ἐπὶ παιδί· κατέστενε δʼ, οὐχ Ὑμεναίῳ,</ns0:l>
+<ns0:l n="4">ἀλλʼ Ἀίδᾳ νύμφαν δωδεκέτιν κατάγων.</ns0:l>
+</ns0:div>
+<ns0:div type="textpart" subtype="epigram" xml:base="urn:cts:greekLit:tlg7000.tlg001.perseus-grc7:7" n="548">
+<ns0:docAuthor xml:lang="lat">
+<ns0:persName xml:lang="lat" key="tlg-1457">
+<ns0:foreign xml:lang="lat">Julius leonidas</ns0:foreign>
+</ns0:persName>
+</ns0:docAuthor>
+<ns0:l n="1">
+<ns0:label type="speaker">α.</ns0:label>
+</ns0:l>
+<ns0:l n="2">τίς Δαίμων Ἀργεῖος ἐπʼ ἠρίῳ; ἆρα σύναιμος</ns0:l>
+<ns0:l n="3">ἐστὶ Δικαιοτέλους; <ns0:label type="speaker">β.</ns0:label> ἐστὶ Δικαιοτέλους.</ns0:l>
+<ns0:l n="4">
+<ns0:label type="speaker">α.</ns0:label>
+</ns0:l>
+<ns0:l n="5">ἠχὼ τοῦτʼ ἐλάλησε πανύστατον, ἢ τόδʼ ἀληθές,</ns0:l>
+<ns0:l n="6">κεῖνος ὅδʼ ἐστὶν ἀνήρ; <ns0:label type="speaker">β.</ns0:label>  κεῖνος ὅδʼ ἐστὶν ἀνήρ. </ns0:l>
+</ns0:div>
+<ns0:div type="textpart" subtype="epigram" xml:base="urn:cts:greekLit:tlg7000.tlg001.perseus-grc7:7" n="549">
+<ns0:docAuthor xml:lang="lat">
+<ns0:persName xml:lang="lat" key="tlg-1457">
+<ns0:foreign xml:lang="lat">Julius leonidas</ns0:foreign>
+</ns0:persName>
+</ns0:docAuthor>
+<ns0:l n="1">Πέτρος ἔτʼ ἐν Σιπύλῳ Νιόβη θρήνοις ἀναλύζει</ns0:l>
+<ns0:l n="2">ἑπτὰ δὶς ὠδίνων δυρομένη θάνατον</ns0:l>
+<ns0:l n="3">λήξει δʼ οὐδʼ αἰῶνι γόου. τί δʼ ἀλαζόνα μῦθον</ns0:l>
+<ns0:l n="4">φθέγξατο, τὸν ζωῆς ἅρπαγα καὶ τεκέων ;</ns0:l>
+<ns0:pb n="v.2.p.296" />
+</ns0:div>
+<ns0:div type="textpart" subtype="epigram" xml:base="urn:cts:greekLit:tlg7000.tlg001.perseus-grc7:7" n="550">
+<ns0:docAuthor xml:lang="lat">
+<ns0:persName xml:lang="lat" key="tlg-1457">
+<ns0:foreign xml:lang="lat">Julius leonidas</ns0:foreign>
+</ns0:persName>
+</ns0:docAuthor>
+<ns0:l n="1">Ναυηγὸς γλαυκοῖο φυγὼν Τρίτωνος ἀπειλὰς</ns0:l>
+<ns0:l n="2">Ἀνθεὺς Φθιώτην οὐ φύγεν αἰνόλυκον·</ns0:l>
+<ns0:l n="3">Πηνειοῦ παρὰ χῦμα γὰρ ὤλετο. φεῦ τάλαν ὅστις</ns0:l>
+<ns0:l n="4">Νηρεΐδων Νύμφας ἔσχεν ἀπιστοτέρας.</ns0:l>
+</ns0:div>
+</ns0:div></ns0:div></ns0:body></ns0:text></ns0:TEI>

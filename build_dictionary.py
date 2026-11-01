@@ -9,7 +9,7 @@ import sqlite3
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
-from corpus import extract, tokens
+from corpus import CHAPTER_EPIGRAM_EDITION, extract, tokens
 from download_corpora import PINS
 
 ROOT = Path(__file__).resolve().parent
@@ -82,6 +82,8 @@ def main():
     settings = {'pins': PINS, 'min_length': a.min_length, 'max_length': a.max_length,
                 'min_frequency': a.min_frequency, 'normalization': 'NFD; omit subscript; uppercase; fold sigma',
                 'scope': 'All Greek <l> elements in selected Greek-named XML editions; no primary-edition filter',
+                'structure_policy': {'version': 2, 'speaker_label_only': 'Retain source rows; exclude from metrical lines; check all source adjacencies',
+                                     'chapter_epigram_edition': CHAPTER_EPIGRAM_EDITION},
                 'python': sys.version.split()[0]}
     db.executemany('INSERT INTO metadata VALUES (?,?)',
                    [(k, json.dumps(v, ensure_ascii=False)) for k, v in settings.items()])

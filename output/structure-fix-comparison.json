@@ -1,0 +1,275 @@
+{
+  "baseline_commit": "726b30e6533906d7a691aa3f01a80078015f0a89",
+  "hashes": {
+    "old": "8f57a743d94a3a0871accb200573dbf5f48b47210ab47d8b46a5184d07eb266e",
+    "new": "07058e9310d54601f243f9eced5ac5e8368d5b764ee344b5d12eac237071d7a5",
+    "old_snapshot": "2b9e39e8a963064ed8c1db80d19222b7cde5e315a1e0a88e096d1234a6b4f21d",
+    "new_snapshot": "3690eca7016d8092976285f0b376cf81d4a261cd257c283736dd4b0f59a47fc3"
+  },
+  "integrity": "ok",
+  "unchanged_tables": [
+    "editions",
+    "dictionary",
+    "frequencies",
+    "frequency_runs",
+    "ingest_log"
+  ],
+  "source_readings_changed": 0,
+  "line_records": 260885,
+  "line_changes": {
+    "poem": 4964,
+    "issue": 2
+  },
+  "speaker_records": [
+    {
+      "edition_id": 364,
+      "sequence": 2791,
+      "citation": "7.548.1",
+      "raw_text": "α.",
+      "issue": "speaker_label_only"
+    },
+    {
+      "edition_id": 364,
+      "sequence": 2794,
+      "citation": "7.548.4",
+      "raw_text": "α.",
+      "issue": "speaker_label_only"
+    }
+  ],
+  "recognized_chapter_epigrams": 815,
+  "acrostics": {
+    "old_count": 27470,
+    "new_count": 27471,
+    "added": [
+      {
+        "direction": "forward",
+        "position": 2,
+        "edition_id": 364,
+        "start_sequence": 2792,
+        "end_sequence": 2796,
+        "word": "ΙΣΧΕ",
+        "log2_score": 18.24345200079907,
+        "urn": "urn:cts:greekLit:tlg7000.tlg001.perseus-grc7",
+        "author": "Unknown",
+        "title": "Ἀνθολογία, Volume II",
+        "start_citation": "7.548.2",
+        "end_citation": "7.548.6",
+        "source_path": "canonical-greekLit/data/tlg7000/tlg001/tlg7000.tlg001.perseus-grc7.xml",
+        "word_frequency": 33,
+        "edition_count": 25
+      }
+    ],
+    "removed": [],
+    "changed": []
+  },
+  "isopsephy": {
+    "old_count": 20,
+    "new_count": 27,
+    "added": [
+      {
+        "edition_id": 363,
+        "poem": 8567,
+        "group_size": 2,
+        "convention": "count_only",
+        "omit_totals": "[5699, 5689]",
+        "count_totals": "[5699, 5699]",
+        "omit_lines": "[2838, 2861, 2900, 2789]",
+        "count_lines": "[2838, 2861, 2900, 2799]",
+        "urn": "urn:cts:greekLit:tlg7000.tlg001.perseus-grc6",
+        "title": "Ἀνθολογία, Volume I",
+        "author": "Julius Leonidas",
+        "citation": "6.321",
+        "kind": "chapter",
+        "source_path": "canonical-greekLit/data/tlg7000/tlg001/tlg7000.tlg001.perseus-grc6.xml"
+      },
+      {
+        "edition_id": 363,
+        "poem": 8591,
+        "group_size": 2,
+        "convention": "count_only",
+        "omit_totals": "[9097, 9117]",
+        "count_totals": "[9117, 9117]",
+        "omit_lines": "[5593, 3504, 5148, 3969]",
+        "count_lines": "[5613, 3504, 5148, 3969]",
+        "urn": "urn:cts:greekLit:tlg7000.tlg001.perseus-grc6",
+        "title": "Ἀνθολογία, Volume I",
+        "author": "Julius Leonidas",
+        "citation": "6.324",
+        "kind": "chapter",
+        "source_path": "canonical-greekLit/data/tlg7000/tlg001/tlg7000.tlg001.perseus-grc6.xml"
+      },
+      {
+        "edition_id": 363,
+        "poem": 8599,
+        "group_size": 2,
+        "convention": "both",
+        "omit_totals": "[5953, 5953]",
+        "count_totals": "[5953, 5953]",
+        "omit_lines": "[3826, 2127, 4056, 1897]",
+        "count_lines": "[3826, 2127, 4056, 1897]",
+        "urn": "urn:cts:greekLit:tlg7000.tlg001.perseus-grc6",
+        "title": "Ἀνθολογία, Volume I",
+        "author": "Julius Leonidas",
+        "citation": "6.325",
+        "kind": "chapter",
+        "source_path": "canonical-greekLit/data/tlg7000/tlg001/tlg7000.tlg001.perseus-grc6.xml"
+      },
+      {
+        "edition_id": 363,
+        "poem": 8607,
+        "group_size": 2,
+        "convention": "both",
+        "omit_totals": "[5982, 5982]",
+        "count_totals": "[5982, 5982]",
+        "omit_lines": "[2840, 3142, 3331, 2651]",
+        "count_lines": "[2840, 3142, 3331, 2651]",
+        "urn": "urn:cts:greekLit:tlg7000.tlg001.perseus-grc6",
+        "title": "Ἀνθολογία, Volume I",
+        "author": "Julius Leonidas",
+        "citation": "6.326",
+        "kind": "chapter",
+        "source_path": "canonical-greekLit/data/tlg7000/tlg001/tlg7000.tlg001.perseus-grc6.xml"
+      },
+      {
+        "edition_id": 363,
+        "poem": 8630,
+        "group_size": 2,
+        "convention": "count_only",
+        "omit_totals": "[7579, 7569]",
+        "count_totals": "[7579, 7579]",
+        "omit_lines": "[3642, 3937, 4112, 3457]",
+        "count_lines": "[3642, 3937, 4122, 3457]",
+        "urn": "urn:cts:greekLit:tlg7000.tlg001.perseus-grc6",
+        "title": "Ἀνθολογία, Volume I",
+        "author": "Julius Leonidas",
+        "citation": "6.329",
+        "kind": "chapter",
+        "source_path": "canonical-greekLit/data/tlg7000/tlg001/tlg7000.tlg001.perseus-grc6.xml"
+      },
+      {
+        "edition_id": 364,
+        "poem": 5358,
+        "group_size": 2,
+        "convention": "omit_only",
+        "omit_totals": "[7150, 7150]",
+        "count_totals": "[7160, 7150]",
+        "omit_lines": "[3880, 3270, 4844, 2306]",
+        "count_lines": "[3890, 3270, 4844, 2306]",
+        "urn": "urn:cts:greekLit:tlg7000.tlg001.perseus-grc7",
+        "title": "Ἀνθολογία, Volume II",
+        "author": "Julius leonidas",
+        "citation": "7.548",
+        "kind": "epigram",
+        "source_path": "canonical-greekLit/data/tlg7000/tlg001/tlg7000.tlg001.perseus-grc7.xml"
+      },
+      {
+        "edition_id": 363,
+        "poem": 8615,
+        "group_size": 1,
+        "convention": "both",
+        "omit_totals": "[4111, 4111]",
+        "count_totals": "[4111, 4111]",
+        "omit_lines": "[4111, 4111]",
+        "count_lines": "[4111, 4111]",
+        "urn": "urn:cts:greekLit:tlg7000.tlg001.perseus-grc6",
+        "title": "Ἀνθολογία, Volume I",
+        "author": "Julius Leonidas",
+        "citation": "6.327",
+        "kind": "chapter",
+        "source_path": "canonical-greekLit/data/tlg7000/tlg001/tlg7000.tlg001.perseus-grc6.xml"
+      }
+    ],
+    "removed": [],
+    "changed": []
+  },
+  "isopsephy_audit": {
+    "old_count": 7198,
+    "new_count": 8828,
+    "removed": [],
+    "changed": [
+      {
+        "before": {
+          "group_size": 2,
+          "edition_id": 362,
+          "poem": 2103,
+          "status": "line_number_discontinuity"
+        },
+        "after": {
+          "group_size": 2,
+          "edition_id": 362,
+          "poem": 2103,
+          "status": "unit_boundary"
+        },
+        "citation": "15.22",
+        "urn": "urn:cts:greekLit:tlg7000.tlg001.perseus-grc10"
+      },
+      {
+        "before": {
+          "group_size": 2,
+          "edition_id": 364,
+          "poem": 5358,
+          "status": "uncertain_or_incomplete_line"
+        },
+        "after": {
+          "group_size": 2,
+          "edition_id": 364,
+          "poem": 5358,
+          "status": "tested"
+        },
+        "citation": "7.548",
+        "urn": "urn:cts:greekLit:tlg7000.tlg001.perseus-grc7"
+      },
+      {
+        "before": {
+          "group_size": 1,
+          "edition_id": 362,
+          "poem": 2103,
+          "status": "line_number_discontinuity"
+        },
+        "after": {
+          "group_size": 1,
+          "edition_id": 362,
+          "poem": 2103,
+          "status": "unit_boundary"
+        },
+        "citation": "15.22",
+        "urn": "urn:cts:greekLit:tlg7000.tlg001.perseus-grc10"
+      },
+      {
+        "before": {
+          "group_size": 1,
+          "edition_id": 364,
+          "poem": 5358,
+          "status": "uncertain_or_incomplete_line"
+        },
+        "after": {
+          "group_size": 1,
+          "edition_id": 364,
+          "poem": 5358,
+          "status": "tested"
+        },
+        "citation": "7.548",
+        "urn": "urn:cts:greekLit:tlg7000.tlg001.perseus-grc7"
+      }
+    ],
+    "added_status_counts": {
+      "ineligible_line_count": 194,
+      "tested": 1400,
+      "gap_or_damage": 18,
+      "unsupported_alphabetic_character": 16,
+      "prose_paragraph": 2
+    },
+    "status_transitions": [
+      {
+        "before": "line_number_discontinuity",
+        "after": "unit_boundary",
+        "count": 2
+      },
+      {
+        "before": "uncertain_or_incomplete_line",
+        "after": "tested",
+        "count": 2
+      }
+    ]
+  }
+}

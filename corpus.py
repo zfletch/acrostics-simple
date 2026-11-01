@@ -14,6 +14,11 @@ VALUES.update({'Ϝ': 6, 'Ϙ': 90})
 DROP = {'note', 'bibl', 'ref', 'head', 'speaker', 'label', 'del', 'stage',
         'docAuthor', 'docTitle', 'fw', 'figure', 'graphic', 'castList'}
 POEM_TYPES = {'epigram', 'poem'}  # Types actually present in the pinned corpora.
+SPEAKER_ONLY = 'speaker_label_only'
+# This edition's CTS declaration names its book/chapter units "epigram".
+# Do not infer poem boundaries from chapter length, author, or numerical equality.
+CHAPTER_EPIGRAM_EDITION = 'urn:cts:greekLit:tlg7000.tlg001.perseus-grc6'
+EPIGRAM_POINTER = "#xpath(/tei:TEI/tei:text/tei:body/tei:div/tei:div[@n='$1']/tei:div[@n='$2'])"
 
 
 def normalized(text, count_iota=False, numeric=False):
@@ -67,6 +72,47 @@ def reading(element):
     return (element.text or '') + ''.join(reading(c) + (c.tail or '') for c in element)
 
 
+def speaker_label_only(line):
+    """Recognize only complete, nonempty speaker labels with no verse text.
+
+    Retain the source row, ordinal and citation; this is not a general rule for
+    dropping empty lines, editorial content, fragments, or damaged text.
+    """
+    return (not line.get('part') and not (line.text or '').strip() and len(line) > 0
+            and all(tag(c) == 'label' and c.get('type') == 'speaker' and len(c) == 0
+                    and (c.text or '').strip() and not (c.tail or '').strip() for c in line))
+
+
+def line_boundary(before, after):
+    """Explain a discontinuity between adjacent original XML line records."""
+    if before['unit'] != after['unit']:
+        return 'unit_boundary'
+    if after['sequence'] != before['sequence'] + 1:
+        return 'xml_line_discontinuity'
+    x, y = before['citation'].rsplit('.', 1)[-1], after['citation'].rsplit('.', 1)[-1]
+    if x.isdecimal() and y.isdecimal() and int(y) != int(x) + 1:
+        return 'line_number_discontinuity'
+    return ''
+
+
+def metrical_lines(rows):
+    """Yield (verse row, preceding barrier), crossing only explicit speaker rows.
+
+    Check every original adjacency, including the skipped speaker records.
+    A label therefore cannot hide a numbering gap, XML gap, or unit boundary.
+    Unusable real verses remain in the stream as barriers.
+    """
+    previous, barrier = None, ''
+    for row in rows:
+        if previous is not None:
+            barrier = barrier or line_boundary(previous, row)
+        previous = row
+        if row['issue'] == SPEAKER_ONLY:
+            continue
+        yield row, barrier
+        barrier = ''
+
+
 def extract(path):
     """Return edition metadata, explicit poems, lines, and parse audit counts.
 
@@ -93,7 +139,13 @@ def extract(path):
         return e.get('subtype', e.get('type', '')).strip().lower()
 
     def is_poem(e):
-        return tag(e) in {'div', 'lg'} and kind(e) in POEM_TYPES
+        if tag(e) in {'div', 'lg'} and kind(e) in POEM_TYPES:
+            return True
+        parent = parents.get(e)
+        return (chapter_epigrams and tag(e) == 'div' and kind(e) == 'chapter'
+                and bool(e.get('n')) and parent is not None and tag(parent) == 'div'
+                and kind(parent) == 'book' and bool(parent.get('n'))
+                and parents.get(parent) is edition)
 
     def citation(chain):
         return '.'.join(e.get('n') for e in chain
@@ -104,6 +156,10 @@ def extract(path):
         raise ValueError(f'Expected one edition division, found {len(editions)}')
     edition = editions[0]
     urn = edition.get('n') or path.stem
+    chapter_epigrams = (urn == CHAPTER_EPIGRAM_EDITION and any(
+        pattern.get('n') == 'epigram' and pattern.get('replacementPattern') == EPIGRAM_POINTER
+        for refs in root.findall('.//' + NS + 'refsDecl') if refs.get('n') == 'CTS'
+        for pattern in refs.findall(NS + 'cRefPattern')))
     statement = root.find('.//' + NS + 'titleStmt')
     author = statement.find(NS + 'author') if statement is not None else None
     titles = statement.findall(NS + 'title') if statement is not None else []
@@ -151,6 +207,8 @@ def extract(path):
             issue = issue or 'no_greek_letters'
         # A gap may conceal missing letters; retain text but mark uncertainty.
         damage = any(tag(e) in {'gap', 'damage', 'supplied', 'unclear'} for e in line.iter())
+        if issue == 'no_greek_letters' and not damage and speaker_label_only(line):
+            issue = SPEAKER_ONLY
         raw = ' '.join(''.join(line.itertext()).split())
         lines.append((sequence, unit, poem, loc, raw, text, letters, issue, int(damage)))
     return metadata, poems, lines

@@ -4,7 +4,7 @@ import argparse
 from collections import Counter
 import json
 from pathlib import Path
-from corpus import VALUES, normalized, open_database
+from corpus import SPEAKER_ONLY, VALUES, line_boundary, normalized, open_database
 
 ROOT = Path(__file__).resolve().parent
 
@@ -30,13 +30,16 @@ def search(db, group_size):
         eid, pid = poem['edition_id'], poem['poem']
         lines = list(db.execute('SELECT * FROM lines WHERE edition_id=? AND poem=? ORDER BY sequence', (eid, pid)))
         status = poem['issue']
-        if not status and any(r['issue'] or r['damaged'] for r in lines):
+        if not status and any((r['issue'] and r['issue'] != SPEAKER_ONLY) or r['damaged'] for r in lines):
             status = 'uncertain_or_incomplete_line'
         if not status:
             for before, after in zip(lines, lines[1:]):
-                x, y = before['citation'].rsplit('.', 1)[-1], after['citation'].rsplit('.', 1)[-1]
-                if x.isdecimal() and y.isdecimal() and int(y) != int(x) + 1:
-                    status = 'line_number_discontinuity'
+                status = line_boundary(before, after)
+                if status:
+                    break
+        # Speaker records remain in the database and continuity checks above,
+        # but are not metrical lines or numerical groups.
+        lines = [r for r in lines if r['issue'] != SPEAKER_ONLY]
         if not status and (len(lines) < 2 * group_size or len(lines) % group_size):
             status = 'ineligible_line_count'
         if status:

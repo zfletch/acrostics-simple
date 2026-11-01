@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:TEI xmlns:ns0="http://www.tei-c.org/ns/1.0"><ns0:teiHeader xml:lang="eng">
+<ns0:fileDesc>
+<ns0:titleStmt>
+ <ns0:title xml:lang="mul">Ἀνθολογία, Volume I</ns0:title>
+<ns0:editor>William Roger Paton</ns0:editor>
+<ns0:sponsor>Perseus Project, Tufts University</ns0:sponsor>
+<ns0:principal>Gregory Crane</ns0:principal>
+ <ns0:respStmt>
+  <ns0:resp>Prepared under the supervision of</ns0:resp>
+  <ns0:name>Lisa Cerrato</ns0:name>
+  <ns0:name>Rashmi Singhal</ns0:name>
+  <ns0:name>Bridget Almas</ns0:name>
+ </ns0:respStmt>
+<ns0:funder n="org:NEH">The National Endowment for the Humanities</ns0:funder>
+<ns0:funder n="org:Google">Google Digital Humanities Awards Program</ns0:funder>
+</ns0:titleStmt>
+
+ <ns0:publicationStmt>
+  <ns0:publisher>Trustees of Tufts University</ns0:publisher>
+  <ns0:pubPlace>Medford, MA</ns0:pubPlace>
+  <ns0:authority>Perseus Digital Library Project</ns0:authority>
+  <ns0:date cert="medium" when="2010-12-13" type="release">Perseus 4.0</ns0:date>
+  <ns0:idno type="filename">tlg7000.tlg001.perseus-grc6.xml</ns0:idno>
+  <ns0:availability>
+   <ns0:licence target="https://creativecommons.org/licenses/by-sa/4.0/">Available under a Creative Commons Attribution-ShareAlike 4.0 International License</ns0:licence>
+  </ns0:availability>
+ </ns0:publicationStmt>
+
+<ns0:sourceDesc>
+<ns0:biblStruct>
+<ns0:monogr>
+<ns0:title>The Greek Anthology</ns0:title>
+<ns0:editor>William Roger Paton</ns0:editor>
+<ns0:imprint>
+<ns0:pubPlace>London</ns0:pubPlace>
+<ns0:publisher>William Heinemann Ltd.</ns0:publisher>
+ <ns0:pubPlace>New York, NY</ns0:pubPlace>
+ <ns0:publisher>G. P. Putnam's Sons</ns0:publisher>
+<ns0:date>1917</ns0:date>
+</ns0:imprint>
+<ns0:biblScope unit="volume">1</ns0:biblScope>
+</ns0:monogr>
+ <ns0:ref target="https://archive.org/details/greekanthology01newyuoft/page/2/mode/2up">The Internet Archive</ns0:ref>
+</ns0:biblStruct>
+
+</ns0:sourceDesc>
+</ns0:fileDesc>
+  
+<ns0:encodingDesc>
+<ns0:editorialDecl>
+<ns0:correction method="silent">
+<ns0:p>optical character recognition</ns0:p>
+</ns0:correction>
+</ns0:editorialDecl>
+ 
+ <ns0:refsDecl n="CTS">
+  
+  <ns0:cRefPattern n="epigram" matchPattern="(\w+).(\w+)" replacementPattern="#xpath(/tei:TEI/tei:text/tei:body/tei:div/tei:div[@n='$1']/tei:div[@n='$2'])">
+   <ns0:p>This pointer pattern extracts book and epigram.</ns0:p>
+  </ns0:cRefPattern>
+  <ns0:cRefPattern n="book" matchPattern="(\w+)" replacementPattern="#xpath(/tei:TEI/tei:text/tei:body/tei:div/tei:div[@n='$1'])">
+   <ns0:p>This pointer pattern extracts book.</ns0:p>
+  </ns0:cRefPattern>
+ </ns0:refsDecl>
+</ns0:encodingDesc>
+  
+<ns0:profileDesc>
+<ns0:langUsage>
+<ns0:language ident="grc">Greek</ns0:language>
+<ns0:language ident="lat">Latin</ns0:language>
+<ns0:language ident="eng">English</ns0:language>
+</ns0:langUsage>
+</ns0:profileDesc>
+  
+<ns0:revisionDesc>
+ <ns0:change when="2025-01-13" who="Lisa Cerrato">Epidoc and CTS conversion and header review for best practices</ns0:change>
+ <ns0:change when="2010-06" who="RS">tagged and parsed</ns0:change>
+</ns0:revisionDesc>
+</ns0:teiHeader>
+ 
+<ns0:text><ns0:body><ns0:div type="edition" xml:lang="grc" n="urn:cts:greekLit:tlg7000.tlg001.perseus-grc6"><ns0:div type="textpart" subtype="book" xml:base="urn:cts:greekLit:tlg7000.tlg001.perseus-grc6" n="6"><ns0:div type="textpart" subtype="chapter" xml:base="urn:cts:greekLit:tlg7000.tlg001.perseus-grc6:6" n="321">
+<ns0:docAuthor xml:lang="lat">
+<ns0:persName xml:lang="lat" key="tlg-1457">
+<ns0:foreign xml:lang="lat">Julius Leonidas</ns0:foreign>
+</ns0:persName>
+</ns0:docAuthor>
+<ns0:l n="1">θύει σοι τόδε γράμμα γενεθλιακαῖσιν ἐν ὥραις,</ns0:l>
+<ns0:l n="2"> Καῖσαρ, Νειλαίη Μοῦσα Λεωνίδεω.</ns0:l>
+<ns0:l n="3"> Καλλιόπης γὰρ ἄκαπνον ἀεὶ θύος. εἰς δὲ νέωτα,</ns0:l>
+<ns0:l n="4">ἢν ἐθέλῃς, θύσει τοῦδε περισσότερα.</ns0:l>
+</ns0:div>
+<ns0:div type="textpart" subtype="chapter" xml:base="urn:cts:greekLit:tlg7000.tlg001.perseus-grc6:6" n="324">
+<ns0:docAuthor xml:lang="lat">
+<ns0:persName xml:lang="lat" key="tlg-1457">
+<ns0:foreign xml:lang="lat">Julius Leonidas</ns0:foreign>
+</ns0:persName>
+</ns0:docAuthor>
+<ns0:l n="1">πέμματα τίς  λιπόωντα, τίς  Ἄρεϊ τῷ πτολιπόρθῳ</ns0:l>
+<ns0:l n="2"> βότρυς, τίς  δὲ ῥόδων θῆκεν ἐμοὶ κάλυκας;</ns0:l>
+<ns0:l n="3"> νύμφαις ταῦτα φέροι τις ἀναιμάκτους δὲ θυηλὰς</ns0:l>
+<ns0:l n="4">οὐ δέχομαι βωμοῖς ὁ θρασύμητις Ἄρης.</ns0:l>
+</ns0:div>
+<ns0:div type="textpart" subtype="chapter" xml:base="urn:cts:greekLit:tlg7000.tlg001.perseus-grc6:6" n="325">
+<ns0:docAuthor xml:lang="lat">
+<ns0:persName xml:lang="lat" key="tlg-1457">
+<ns0:foreign xml:lang="lat">Julius Leonidas</ns0:foreign>
+</ns0:persName>
+</ns0:docAuthor>
+<ns0:l n="1">ἄλλος ἀπὸ σταλίκων, ὁ δʼ ἀπʼ ἠέρος, ὃς δʼ ἀπὸ πόντου,</ns0:l>
+<ns0:l n="2"> Εὔπολι, σοὶ πέμπει δῶρα γενεθλίδια·</ns0:l>
+<ns0:l n="3"> ἀλλʼ ἐμέθεν δέξαι Μουσῶν στίχον, ὅστις ἐς αἰεὶ</ns0:l>
+<ns0:l n="4"> μίμνει, καὶ φιλίης σῆμα καὶ εὐμαθίης.</ns0:l>
+</ns0:div>
+<ns0:div type="textpart" subtype="chapter" xml:base="urn:cts:greekLit:tlg7000.tlg001.perseus-grc6:6" n="326">
+<ns0:docAuthor xml:lang="lat">
+<ns0:persName xml:lang="lat" key="tlg-1457">
+<ns0:foreign xml:lang="lat">Julius Leonidas</ns0:foreign>
+</ns0:persName>
+</ns0:docAuthor>
+<ns0:l n="1">Λὐκτιον ἰοδόκην καὶ καμπύλον, Ἄρτεμι, τόξον</ns0:l>
+<ns0:l n="2"> Νῖκις ὁ Λυσιμάχου παῖς ἀνέθηκε Λίβυς·</ns0:l>
+<ns0:l n="3"> ἰοὺς γὰρ πλήθοντας ἀεὶ λαγόνεσσι φαρέτρης</ns0:l>
+<ns0:l n="4">δορκάσι καὶ βαλίαις ἐξεκένωσ’ ἐλάφοις.</ns0:l>
+</ns0:div>
+<ns0:div type="textpart" subtype="chapter" xml:base="urn:cts:greekLit:tlg7000.tlg001.perseus-grc6:6" n="327">
+<ns0:docAuthor xml:lang="lat">
+<ns0:persName xml:lang="lat" key="tlg-1457">
+<ns0:foreign xml:lang="lat">Julius Leonidas</ns0:foreign>
+</ns0:persName>
+</ns0:docAuthor>
+<ns0:l n="1">εἷς πρὸς ἕνα ψήφοισιν ἰσάζεται, οὐ δύο δοιοῖς</ns0:l>
+<ns0:l n="2">οὐ γὰρ ἔτι στέργω τὴν δολιχογραφίην.</ns0:l>
+</ns0:div>
+<ns0:div type="textpart" subtype="chapter" xml:base="urn:cts:greekLit:tlg7000.tlg001.perseus-grc6:6" n="329">
+<ns0:docAuthor xml:lang="lat">
+<ns0:persName xml:lang="lat" key="tlg-1457">
+<ns0:foreign xml:lang="lat">Julius Leonidas</ns0:foreign>
+</ns0:persName>
+</ns0:docAuthor>
+<ns0:l n="1">ἄλλος μὲν κρύσταλλον, ὁ δʼ ἄργυρον, οἱ δὲ τοπάζους</ns0:l>
+<ns0:l n="2"> πέμψουσιν, πλούτου δῶρα γενεθλίδια·</ns0:l>
+<ns0:l n="3">ἀλλʼ ἴδʼ Ἀγρειππίνῃ δύο δίστιχα μοῦνον ἰσώσας,</ns0:l>
+<ns0:l n="4">ἀρκοῦμαι δώροις, ἃ φθόνος οὐ δαμάσει.</ns0:l>
+</ns0:div>
+</ns0:div></ns0:div></ns0:body></ns0:text></ns0:TEI>

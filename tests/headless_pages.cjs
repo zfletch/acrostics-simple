@@ -18,9 +18,9 @@ fs.mkdirSync(out,{recursive:true});
     const marks = n => page.waitForFunction(n => document.querySelectorAll('#detail mark').length === n,n);
     const overflow = () => page.evaluate(() => ({width:innerWidth,scrollWidth:document.documentElement.scrollWidth}));
     await page.goto(base,{waitUntil:'networkidle'});
-    await count('27,470 results');
+    await count('27,471 results');
     assert.equal(await page.locator('.row').count(),50);
-    assert.equal(await page.locator('#icount').innerText(),'20');
+    assert.equal(await page.locator('#icount').innerText(),'27');
     assert(!requests.some(u => u.includes('/passages/')),'passages must load only on selection');
     const first = await page.locator('.row').first().innerText();
     await page.locator('#next').click();
@@ -30,7 +30,7 @@ fs.mkdirSync(out,{recursive:true});
     await page.waitForFunction(() => document.getElementById('page').textContent.startsWith('1 /'));
     assert.equal(await page.locator('.row').first().innerText(),first);
     for (const sort of ['word','author','location','score']) {
-      await page.locator('#sort').selectOption(sort); await count('27,470 results');
+      await page.locator('#sort').selectOption(sort); await count('27,471 results');
     }
     const scores = (await page.locator('.row small').allTextContents()).map(parseFloat);
     assert(scores.every((s,i) => i === 0 || scores[i-1] >= s));
@@ -59,6 +59,10 @@ fs.mkdirSync(out,{recursive:true});
     await page.locator('#q').fill('ἐράσαι'); await count('1 results');
     await page.locator('.row').click(); await marks(6);
     assert.equal((await page.locator('#detail mark').allTextContents()).join(''),'ΕΡΑΣΑΙ');
+    await page.locator('#q').fill('7.548'); await count('1 results');
+    await page.locator('.row').click(); await marks(4);
+    assert.equal((await page.locator('#detail mark').allTextContents()).join(''),'ΙΣΧΕ');
+    assert.deepEqual(await page.locator('#detail .citation').allTextContents(),['7.548.2','7.548.3','7.548.5','7.548.6']);
     await page.locator('#q').fill('%'); await count('0 results');
     assert(await page.locator('#next').isDisabled());
     await page.locator('[data-kind=isopsephy]').click();
@@ -70,8 +74,39 @@ fs.mkdirSync(out,{recursive:true});
     assert.equal(await page.locator('.line-total').count(),4);
     const desktop = await overflow(); assert(desktop.scrollWidth <= desktop.width);
     await page.screenshot({path:path.join(out,'desktop-ap8-39.png'),fullPage:true});
+    const recovered = [
+      ['6.321','2','5,699 / 5,689','5,699 / 5,699','count only',4],
+      ['6.324','2','9,097 / 9,117','9,117 / 9,117','count only',4],
+      ['6.325','2','5,953 / 5,953','5,953 / 5,953','both',4],
+      ['6.326','2','5,982 / 5,982','5,982 / 5,982','both',4],
+      ['6.327','1','4,111 / 4,111','4,111 / 4,111','both',2],
+      ['6.329','2','7,579 / 7,569','7,579 / 7,579','count only',4],
+      ['7.547','2','7,247 / 7,237','7,267 / 7,267','count only',4],
+      ['7.548','2','7,150 / 7,150','7,160 / 7,150','omit only',4]
+    ];
+    for (const [citation,group,omit,counted,policy,n] of recovered) {
+      await page.locator('#group_size').selectOption(group);
+      await page.locator('#q').fill(citation); await count('1 results');
+      await page.locator('.row').click();
+      await page.waitForFunction(c => document.querySelector('#detail h2')?.textContent === c,citation);
+      assert.deepEqual(await page.locator('.sum b').allTextContents(),[omit,counted]);
+      assert.match(await page.locator('#detail .reading-note').innerText(),new RegExp(`Equality: ${policy}\\.`));
+      assert.equal(await page.locator('.line-total').count(),n);
+      assert.equal(await page.locator('.greek').count(),n);
+      assert(!(await page.locator('#detail').innerText()).includes('NaN'));
+    }
+    assert.deepEqual(await page.locator('#detail .citation').allTextContents(),['7.548.2','7.548.3','7.548.5','7.548.6']);
+    assert((await page.locator('#detail .greek').first().innerText()).includes('Δαίμων'));
+    await page.screenshot({path:path.join(out,'desktop-ap7-548.png'),fullPage:true});
+    for (const citation of ['7.549','7.550']) {
+      await page.locator('#q').fill(citation); await count('0 results');
+    }
+    await page.locator('#q').fill('7.548'); await count('1 results');
+    await page.locator('.row').click();
+    await page.waitForFunction(() => document.querySelector('#detail h2')?.textContent === '7.548');
     await page.setViewportSize({width:390,height:844});
     const mobileISO = await overflow(); assert(mobileISO.scrollWidth <= mobileISO.width);
+    await page.screenshot({path:path.join(out,'mobile-ap7-548.png'),fullPage:true});
     await page.locator('[data-kind=acrostic]').click();
     await page.locator('#q').fill('Ἕλληνες'); await count('1 results');
     await page.locator('.row').click(); await marks(7);
@@ -90,14 +125,14 @@ fs.mkdirSync(out,{recursive:true});
       await p.route(`**/${resource}`,r => {if (fail) {fail=false; return r.fulfill({status:503,body:'Temporarily unavailable'});} return r.continue();});
       await p.goto(base); await p.locator('#retry').waitFor({state:'visible'});
       await p.locator('#retry').click();
-      await p.waitForFunction(() => document.getElementById('result-count').textContent === '27,470 results');
+      await p.waitForFunction(() => document.getElementById('result-count').textContent === '27,471 results');
       await failure.close();
     }
     const failure = await browser.newContext(); const p = await failure.newPage();
     p.on('pageerror',e => errors.push(e.message));
     let fail = true;
     await p.route('**/passages/148.json',r => {if (fail) {fail=false; return r.fulfill({status:404,body:'Missing'});} return r.continue();});
-    await p.goto(base); await p.waitForFunction(() => document.getElementById('result-count').textContent === '27,470 results');
+    await p.goto(base); await p.waitForFunction(() => document.getElementById('result-count').textContent === '27,471 results');
     await p.locator('#q').fill('ΕΚΤΩΡ');
     await p.waitForFunction(() => document.getElementById('result-count').textContent === '1 results');
     await p.locator('.row').click(); await p.getByRole('button',{name:'Retry passage',exact:true}).waitFor({state:'visible'});
@@ -110,7 +145,7 @@ fs.mkdirSync(out,{recursive:true});
     let release;
     const held = new Promise(resolve => release = resolve);
     await rp.route('**/passages/148.json',async r => {await held; await r.fulfill({status:503,body:'Old request failed'});});
-    await rp.goto(base); await rp.waitForFunction(() => document.getElementById('result-count').textContent === '27,470 results');
+    await rp.goto(base); await rp.waitForFunction(() => document.getElementById('result-count').textContent === '27,471 results');
     await rp.locator('#q').fill('ΕΚΤΩΡ'); await rp.waitForFunction(() => document.querySelectorAll('.row').length === 1);
     await rp.locator('.row').click();
     await rp.locator('#q').fill('ΕΛΛΗΝΕΣ'); await rp.waitForFunction(() => document.querySelector('.row .word')?.textContent === 'ΕΛΛΗΝΕΣ');
@@ -119,7 +154,7 @@ fs.mkdirSync(out,{recursive:true});
     assert.equal(await rp.locator('#detail h2').innerText(),'ΕΛΛΗΝΕΣ');
     await race.close();
     assert.deepEqual(errors,[]);
-    const result = {url:base,browser:await browser.version(),desktop,mobile,mobileISO,
+    const result = {url:base,browser:await browser.version(),desktop,mobile,mobileISO,recoveredPoems:recovered.map(r => r[0]),
       checks:['counts','lazy passages','paging','all sorts','combined filters','accented Greek search','keyboard selection','Homer reverse ΕΚΤΩΡ','Quintus second-letter ΕΛΛΗΝΕΣ','Euripides ΕΡΑΣΑΙ','literal wildcard search','AP8.39 both iota conventions','mobile layout','source link','methods and license','manifest failure recovery','index failure recovery','passage failure recovery','stale failed request ignored'],pageErrors:errors};
     fs.writeFileSync(path.join(out,'result.json'),JSON.stringify(result,null,2)+'\n');
     console.log(JSON.stringify(result));

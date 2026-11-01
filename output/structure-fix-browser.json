@@ -1,0 +1,48 @@
+{
+  "url": "http://127.0.0.1:8891/acrostics-simple/",
+  "browser": "153.0.8010.12",
+  "desktop": {
+    "width": 1365,
+    "scrollWidth": 1365
+  },
+  "mobile": {
+    "width": 390,
+    "scrollWidth": 390
+  },
+  "mobileISO": {
+    "width": 390,
+    "scrollWidth": 390
+  },
+  "recoveredPoems": [
+    "6.321",
+    "6.324",
+    "6.325",
+    "6.326",
+    "6.327",
+    "6.329",
+    "7.547",
+    "7.548"
+  ],
+  "checks": [
+    "counts",
+    "lazy passages",
+    "paging",
+    "all sorts",
+    "combined filters",
+    "accented Greek search",
+    "keyboard selection",
+    "Homer reverse ΕΚΤΩΡ",
+    "Quintus second-letter ΕΛΛΗΝΕΣ",
+    "Euripides ΕΡΑΣΑΙ",
+    "literal wildcard search",
+    "AP8.39 both iota conventions",
+    "mobile layout",
+    "source link",
+    "methods and license",
+    "manifest failure recovery",
+    "index failure recovery",
+    "passage failure recovery",
+    "stale failed request ignored"
+  ],
+  "pageErrors": []
+}

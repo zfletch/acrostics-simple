@@ -20,8 +20,8 @@ individual TEI headers for applicable source terms.
 ## Browse the results online
 
 The public viewer is at **https://zfletch.github.io/acrostics-simple/**. The source
-repository stays private. The site publishes the existing 27,470 acrostic
-candidates, 20 whole-poem isopsephy results, their required Greek passages, and
+repository stays private. The site publishes 27,471 acrostic
+candidates, 27 whole-poem isopsephy results, their required Greek passages, and
 edition attribution. Its [methods and licenses](https://zfletch.github.io/acrostics-simple/methods.html)
 explain the scores, iota conventions, source pins, and text normalization.
 
@@ -42,7 +42,7 @@ python3 viewer.py
 
 Python 3.9+ is enough to run the viewer. No corpus download, database rebuild,
 package installation, or external web service is needed. The included
-`output/results.sqlite3` contains 27,470 acrostic candidates, 20 whole-poem
+`output/results.sqlite3` contains 27,471 acrostic candidates, 27 whole-poem
 isopsephy matches, and their passages. The viewer stays on the local computer.
 
 ## Build or update the public viewer
@@ -193,9 +193,17 @@ source attribution. The compact distribution does not redistribute both reposito
 * Keep blank/unusable line records as barriers. Reject split-line pieces marked
   `I`, `M`, or `F` instead of pretending that each is a complete metrical line.
   Do not merge fragments or repair the text. Nested line structures are excluded.
-* A candidate must use consecutive XML ordinals within one edition and unit.
+  The narrow exception is an `<l>` containing only nonempty `label type="speaker"`
+  elements and whitespace, without fragment or damage markup. Retain that source
+  row as `speaker_label_only`, but do not count it as a metrical verse. In the
+  pinned sources, only AP 7.548's two separate speaker-label rows qualify.
+* A candidate must follow consecutive XML ordinals within one edition and unit.
   Explicit consecutive numeric line labels must also increase by one. A gap or
-  duplicated number breaks the candidate. Unknown/non-numeric labels are retained;
+  duplicated number breaks the candidate. Check every adjacency through any
+  speaker-only records; they cannot conceal a missing line or cross a boundary.
+  Rendered verses retain original citations (AP 7.548: 2, 3, 5, 6), while the
+  full processing DB retains the intervening speaker records and their raw text.
+  Unknown/non-numeric labels are retained;
   no claim is made to reconstruct missing ancient lineation.
 * Normalize with Unicode NFD **before** uppercasing. Remove accents, breathings,
   diaeresis and subscript iota (`U+0345` and spacing `U+1FBE`). Retain ordinary
@@ -241,11 +249,14 @@ The historical heuristic is documented separately in `provenance/inspection-note
 
 ## Isopsephy really searches poems
 
-Only explicit TEI `div`/`lg` types **`epigram` or `poem`** are treated as poem
-boundaries; these types occur in the downloaded sources. A book, quotation or
-arbitrary four-line window is never relabeled as a poem. Consequently poems
-encoded only as chapters, whole works, hymns or anonymous verse blocks are
-outside this search. This limitation is preferable to inventing boundaries.
+Explicit TEI `div`/`lg` types **`epigram` or `poem`** are treated as poem
+boundaries. One documented encoding also qualifies: edition
+`urn:cts:greekLit:tlg7000.tlg001.perseus-grc6` explicitly declares its numbered
+book/chapter units as epigrams in its CTS `cRefPattern`. Require that exact
+declaration and hierarchy; preserve the original `chapter` kind in provenance.
+This recognizes 815 source-declared epigrams, including AP 6.321 and 6.324–329.
+Other chapters, books, quotations, whole works, hymns and anonymous verse blocks
+are not inferred to be poems from their length, author, or numerical totals.
 
 With `--group-size 2`, an entire even-length poem of at least four lines must
 have all successive two-line sums equal. These are line-pair groups; metre is
@@ -287,6 +298,13 @@ rules. Reverse position 2 has a rule replay but no archived table. The current
 parser deliberately changes boundaries and readings; do not expect identical
 candidate counts, vocabulary or scores. Every removed candidate is classified.
 The original research, databases, paper and Claude source were left untouched.
+
+The subsequent source-structure fix is recorded in the current section of
+`REPORT.md` and `output/structure-fix-comparison.json`. The fresh run changes no
+source readings, dictionary entries, frequencies, or previous result scores.
+It adds seven isopsephy results and the second-letter candidate ΙΣΧΕ at AP 7.548.
+`tests/compare_structure_fix.py --help` describes the exhaustive comparison;
+`output/structure-fix-run.txt` records the pipeline commands and scan counts.
 
 ## Local viewer
 

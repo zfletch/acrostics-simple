@@ -1,4 +1,74 @@
-# Reproduction and validation — 8 October 2026
+# Source-structure corrections — 1 November 2026
+
+The current snapshot contains **27,471 acrostic candidates**, **27 isopsephy
+results** (23 two-line-group, 4 individual-line), and **71,790 passage lines**.
+It was rebuilt from the same pinned XML sources, with every Greek reading
+unchanged. The original full database and Mini viewer were preserved.
+
+AP 7.548's two XML line elements containing only speaker labels remain in the
+full database with original ordinals, citations, raw labels, and the explicit
+`speaker_label_only` flag. They no longer count as metrical verses. All original
+adjacencies are checked, including those through labels, so genuine numbering
+gaps, missing XML lines, and unit boundaries still stop searches.
+
+The source edition `tlg7000.tlg001.perseus-grc6` calls its numbered book/chapter
+units epigrams in its CTS citation declaration. The parser now recognizes those
+815 units only for that exact edition, declaration, and hierarchy. Original
+`chapter` kinds remain in provenance. Arbitrary chapters are not treated as poems.
+
+| Newly recovered poem | Group size | Iota policy | Equal group total |
+|---|---:|---|---:|
+| AP 6.321 | 2 | Count only | 5,699 |
+| AP 6.324 | 2 | Count only | 9,117 |
+| AP 6.325 | 2 | Both | 5,953 |
+| AP 6.326 | 2 | Both | 5,982 |
+| AP 6.327 | 1 | Both | 4,111 |
+| AP 6.329 | 2 | Count only | 7,579 |
+| AP 7.548 | 2 | Omit only | 7,150 |
+
+AP 7.548 retains Paton's `Δαίμων`; its counted totals are 7,160 / 7,150.
+These policy labels describe this selected text, not an inference about ancient
+orthographic practice. AP 7.549 and 7.550 remain unequal and are not emended.
+AP 7.547 remains count-only at 7,267 per couplet.
+
+One acrostic is added: forward second-letter **ΙΣΧΕ**, AP 7.548's actual verse
+citations 2, 3, 5, 6. Its log2 score is 18.24345200079907. Direction/position
+counts are now 5,202 / 5,161 / 8,549 / 8,559 (forward1/reverse1/forward2/reverse2).
+
+The exhaustive comparison preserves all 27,470 previous acrostics and all 20
+previous isopsephy results exactly, including scores and totals. Edition source
+hashes, dictionary, positional frequencies, denominators, and ingestion logs
+are unchanged. All 260,885 source line records retain their raw/selected text,
+citations, ordinals, units, and damage flags. Only 4,964 poem associations and
+the two speaker flags change. The full run now recognizes 4,414 poem units.
+Among existing audits, 7.548 changes from skipped to tested; AP 15.22 remains
+skipped, with the more specific unit-boundary reason replacing its numbering
+discontinuity reason. No previously tested poem becomes excluded.
+
+`output/structure-fix-comparison.json` records exact old/new database SHA-256
+hashes, every result addition, and audit transitions. The baseline commit is
+`726b30e6533906d7a691aa3f01a80078015f0a89`; it is also the rollback reference.
+`output/structure-fix-run.txt` records the complete processing commands.
+`tests/compare_structure_fix.py` reproduces the exhaustive read-only comparison;
+`tests/verify_corpus.py` validates all 27,471 reading paths and known examples.
+
+The 31-test suite includes source-derived positive fixtures and negative cases
+for malformed/empty speaker labels, real empty/damaged lines, fragment markers,
+numeric/XML gaps, nested boundaries, inline labels, incorrect editions and
+citation declarations, wrong chapter hierarchy, and prose chapters. Static
+export parity checks compare every published result and passage with SQLite.
+Independent review also recomputed the target totals and compared source bytes,
+existing results, and database hashes. Headless Chromium checks passed for all
+recovered poems, their policies/totals and original citations, ΙΣΧΕ, the existing
+known examples, combined filters, sorts, pagination, keyboard selection, and
+loading/error recovery. Desktop and 390-pixel mobile screenshots were inspected;
+there is no horizontal overflow or JavaScript error. See
+`output/structure-fix-browser.json`.
+
+The report below describes the earlier baseline and retains its historical
+counts and comparisons. It does not describe the current published snapshot.
+
+# Historical reproduction and validation — 8 October 2026
 
 The six scripts ran locally against the original Python project's pinned corpus
 commits. No model scan, paid service, public upload, GitHub push or deployment

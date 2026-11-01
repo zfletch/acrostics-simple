@@ -6,6 +6,7 @@ import sqlite3
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from build_dictionary import SCHEMA
+from corpus import SPEAKER_ONLY
 
 ROOT = Path(__file__).resolve().parents[1]
 source = sqlite3.connect((ROOT / 'output/research.sqlite3').as_uri() + '?mode=ro', uri=True)
@@ -27,6 +28,8 @@ poems = {(r[0],r[1]) for r in source.execute('SELECT edition_id,poem FROM isopse
 columns = ['edition_id','sequence','poem','citation','text','letters','issue','damaged']
 out.execute('CREATE TABLE passages (' + ','.join(columns) + ', PRIMARY KEY(edition_id,sequence))')
 for row in source.execute('SELECT * FROM lines ORDER BY edition_id,sequence'):
+    if row['issue'] == SPEAKER_ONLY:
+        continue  # Source records remain in the full DB; render metrical lines only.
     if (row['edition_id'],row['sequence']) in keys or (row['edition_id'],row['poem']) in poems:
         out.execute('INSERT INTO passages VALUES (?,?,?,?,?,?,?,?)', tuple(row[c] for c in columns))
 out.execute('CREATE INDEX acrostic_rank ON acrostic_results(direction,position,log2_score DESC)')

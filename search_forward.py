@@ -4,7 +4,7 @@ import argparse
 import json
 import math
 from pathlib import Path
-from corpus import open_database
+from corpus import metrical_lines, open_database
 
 ROOT = Path(__file__).resolve().parent
 DIRECTION = 'forward'
@@ -22,20 +22,15 @@ def search(db, position):
     shortest = min(map(len, words), default=0)
     matches = []
     for edition in db.execute('SELECT id FROM editions ORDER BY id'):
-        lines = list(db.execute('SELECT * FROM lines WHERE edition_id=? ORDER BY sequence', (edition[0],)))
-        for start, first in enumerate(lines):
+        lines = list(metrical_lines(db.execute('SELECT * FROM lines WHERE edition_id=? ORDER BY sequence', (edition[0],))))
+        for start, (first, _) in enumerate(lines):
             letters = []
             for end in range(start, min(start + longest, len(lines))):
-                line = lines[end]
+                line, barrier = lines[end]
                 if (line['unit'] != first['unit'] or line['issue'] or
                         len(line['letters']) < position or
-                        line['sequence'] != first['sequence'] + end - start):
+                        (end > start and barrier)):
                     break
-                if end > start:
-                    before = lines[end - 1]['citation'].rsplit('.', 1)[-1]
-                    after = line['citation'].rsplit('.', 1)[-1]
-                    if before.isdecimal() and after.isdecimal() and int(after) != int(before) + 1:
-                        break  # An encoded numbering gap or duplicate is a boundary.
                 letters.append(line['letters'][position - 1])
                 if len(letters) < shortest:
                     continue

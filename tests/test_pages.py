@@ -52,7 +52,7 @@ class PagesTests(unittest.TestCase):
             self.assertTrue(edition['source_url'].startswith('https://github.com/'))
             count += len(lines)
         self.assertEqual(count,self.db.execute('SELECT count(*) FROM passages').fetchone()[0])
-        self.assertEqual((self.manifest['acrostics'],self.manifest['isopsephy'],count),(27470,20,71764))
+        self.assertEqual((self.manifest['acrostics'],self.manifest['isopsephy'],count),(27471,27,71790))
         self.assertEqual(hashlib.sha256(self.database.read_bytes()).hexdigest(),self.digest)
 
     def test_only_public_allowlist_and_resolving_relative_links(self):
@@ -91,9 +91,9 @@ class PagesTests(unittest.TestCase):
                     for page in [0,1,7]: queries.append(dict(sort=sort,direction=direction,position=position,page=page))
         for q in ['ἐράσαι','ΕΚΤΩΡ','Ἕλληνες','Homer','HOMER','Quintus','6.511','Ἰλιάς','%','_',"'; DROP TABLE editions;--",'no-such-word-qq']:
             for direction in ['', 'forward','reverse']: queries.append(dict(q=q,direction=direction))
-        for q in ['', '8.39','11.87','Gregorius','%']:
+        for q in ['', '8.39','11.87','7.548','6.321','6.327','6.329','Gregorius','%']:
             for group in ['',1,2]: queries.append(dict(kind='isopsephy',q=q,group_size=group))
-        passages = [{'edition_id':r['edition_id'],'start':r['start_sequence'],'end':r['end_sequence']} for r in self.db.execute("SELECT * FROM acrostic_results WHERE word IN ('ΕΚΤΩΡ','ΕΛΛΗΝΕΣ','ΕΡΑΣΑΙ')")]
+        passages = [{'edition_id':r['edition_id'],'start':r['start_sequence'],'end':r['end_sequence']} for r in self.db.execute("SELECT * FROM acrostic_results WHERE word IN ('ΕΚΤΩΡ','ΕΛΛΗΝΕΣ','ΕΡΑΣΑΙ','ΙΣΧΕ')")]
         passages += [{'edition_id':r['edition_id'],'poem':r['poem']} for r in self.db.execute('SELECT * FROM isopsephy_results')]
         texts = ['ᾧ','ω\u0345','ῳ','῾Ι','ι','ϲϹϽϐϑϰϱϕϖ','Ἑλλῆνες','ᾠδή','Ιι','ſß','ʼʹʹ','hello','%']
         request = dict(queries=queries,passages=passages,normalization=texts)

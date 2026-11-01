@@ -3,6 +3,9 @@
 import json
 from pathlib import Path
 import sqlite3
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from corpus import SPEAKER_ONLY, line_boundary
 
 ROOT = Path(__file__).resolve().parents[1]
 db = sqlite3.connect((ROOT / 'output/research.sqlite3').as_uri() + '?mode=ro', uri=True)
@@ -12,7 +15,9 @@ assert not db.execute('PRAGMA foreign_key_check').fetchall()
 lines = {(r['edition_id'], r['sequence']): r for r in db.execute('SELECT * FROM lines')}
 checked = 0
 for r in db.execute('SELECT * FROM acrostics'):
-    passage = [lines[(r['edition_id'], i)] for i in range(r['start_sequence'], r['end_sequence']+1)]
+    source_rows = [lines[(r['edition_id'], i)] for i in range(r['start_sequence'], r['end_sequence']+1)]
+    assert all(not line_boundary(a,b) for a,b in zip(source_rows,source_rows[1:]))
+    passage = [line for line in source_rows if line['issue'] != SPEAKER_ONLY]
     assert len({line['unit'] for line in passage}) == 1
     assert all(not line['issue'] and len(line['letters']) >= r['position'] for line in passage)
     reading = ''.join(line['letters'][r['position']-1] for line in passage)

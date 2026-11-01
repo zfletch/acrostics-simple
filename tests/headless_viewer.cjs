@@ -11,7 +11,7 @@ fs.mkdirSync(out,{recursive:true});
  const waitCount=async text=>page.waitForFunction(t=>document.getElementById('result-count').textContent===t,text);
  const overflow=async()=>page.evaluate(()=>({width:innerWidth,scrollWidth:document.documentElement.scrollWidth}));
  await page.goto('http://127.0.0.1:8766',{waitUntil:'networkidle'});
- await waitCount('27,470 results');
+ await waitCount('27,471 results');
  assert(await page.locator('.row').count()===50,'50-row paging');
  assert(JSON.stringify(await page.locator('#direction option').evaluateAll(ns=>ns.map(n=>n.value)))===JSON.stringify(['','forward','reverse']),'all direction options');
  let values=await page.locator('.row small').allTextContents();
