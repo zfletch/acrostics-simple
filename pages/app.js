@@ -1,3 +1,4 @@
+const {positionLabel, shapeLabel, sourceLine} = globalThis.GreekLetters;
 // MIT. Presentation follows the local viewer; data access is entirely static.
 import {createStore} from './data.js';
 const store = createStore();
@@ -42,9 +43,9 @@ async function load() {
       button.setAttribute('aria-pressed','false');
       const top = el('div',undefined,'row-top');
       top.append(el('span',kind === 'acrostic' ? row.word : `Poem ${row.citation}`,'word'));
-      top.append(el('span',kind === 'acrostic' ? `${row.direction === 'forward' ? '↓' : '↑'} Position ${row.position}` :
+      top.append(el('span',kind === 'acrostic' ? `${row.direction === 'forward' ? '↓' : '↑'} ${positionLabel(row.position)}` :
         `${row.group_size === 1 ? 'Lines' : `Groups of ${row.group_size}`} · ${row.convention.replace('_only',' only')}`,'badge'));
-      if (kind === 'acrostic' && $('shape').value === 'gamma') top.append(el('span', row.direction === 'forward' ? 'Γ' : 'L','badge'));
+      if (kind === 'acrostic' && $('shape').value === 'gamma') top.append(el('span', shapeLabel(row),'badge'));
       button.append(top,el('p',`${row.author} · ${row.title}`,'row-source'));
       const loc = el('div',kind === 'acrostic' ? `${row.start_citation}–${row.end_citation}` :
         `Omit ${JSON.parse(row.omit_totals).map(fmt).join(' / ')} · Count ${JSON.parse(row.count_totals).map(fmt).join(' / ')}`,'row-location');
@@ -80,7 +81,7 @@ async function detail(row,button) {
     box.append(el('p',`${row.author} · ${row.title}`,'detail-meta'));
     if (selectedKind === 'acrostic') {
       box.append(el('p',`${row.log2_score.toFixed(4)} bits · Word occurs ${fmt(row.word_frequency)} times in ${fmt(row.edition_count)} editions.`,'detail-meta'));
-      box.append(el('p',`Read ${row.direction === 'forward' ? 'top to bottom ↓' : 'bottom to top ↑'}, letter ${row.position} of each normalized line. The marked letters retain this reading path.`,'reading-note'));
+      box.append(el('p',`Read ${row.direction === 'forward' ? 'top to bottom ↓' : 'bottom to top ↑'}, ${row.position === -1 ? 'the final Greek letter' : `Greek letter ${row.position}`} of each line.`,'reading-note'));
     } else {
       const sums = el('div',undefined,'sums');
       for (const [label,key] of [['Omit subscript iota','omit_totals'],['Count subscript iota','count_totals']]) {
@@ -93,12 +94,10 @@ async function detail(row,button) {
     lines.forEach((line,i) => {
       const verse = el('div',undefined,'verse'), content = el('div');
       verse.append(el('div',line.citation,'citation'));
-      content.append(el('p',line.text,'greek'));
-      if (selectedKind === 'acrostic') {
-        const normal = el('p',undefined,'normalized');
-        Array.from(line.letters).forEach((c,j) => normal.append(j === row.position-1 ? el('mark',c) : document.createTextNode(c)));
-        content.append(normal);
-      } else content.append(el('p',`Line sum · omit ${fmt(JSON.parse(row.omit_lines)[i])} / count ${fmt(JSON.parse(row.count_lines)[i])}`,'line-total'));
+      content.append(sourceLine(line, selectedKind === 'acrostic' ? row : null,
+        row.direction === 'reverse' ? lines.length - 1 - i : i,
+        $('shape').value === 'gamma' ? $('gamma_match').value : null));
+      if (selectedKind !== 'acrostic') content.append(el('p',`Line sum · omit ${fmt(JSON.parse(row.omit_lines)[i])} / count ${fmt(JSON.parse(row.count_lines)[i])}`,'line-total'));
       if (line.damaged) content.append(el('p','This line contains marked textual uncertainty.','warning'));
       verse.append(content);
       box.append(verse);
@@ -123,7 +122,7 @@ async function initialize() {
     $('acount').textContent = fmt(stats.acrostics);
     $('icount').textContent = fmt(stats.isopsephy);
     if ($('position').options.length === 1) for (const p of stats.positions) {
-      const option = el('option',`Position ${p}`); option.value = p; $('position').append(option);
+      const option = el('option',positionLabel(p)); option.value = p; $('position').append(option);
     }
     await load();
   } catch (e) {
@@ -147,12 +146,13 @@ $('filters').onsubmit = e => {e.preventDefault(); page=0; load();};
 function syncShape() {
   const active = kind === 'acrostic' && $('shape').value === 'gamma';
   document.querySelectorAll('.gamma-mode').forEach(n => n.hidden = !active);
-  $('position').disabled = active;
-  if (active) $('position').value = '1';
+  for (const option of $('position').options) option.disabled = active && !['','1','-1'].includes(option.value);
+  if (active && !['','1','-1'].includes($('position').value)) $('position').value = '';
+  $('gamma_match').options[0].textContent = $('position').value === '-1' ? 'Final three letters' :
+    $('position').value === '1' ? 'First three letters' : 'Three corner letters';
 }
-for (const id of ['direction','position','sort','group_size','gamma_match']) $(id).onchange = () => {page=0; load();};
+for (const id of ['direction','position','sort','group_size','gamma_match']) $(id).onchange = () => {syncShape(); page=0; load();};
 $('shape').onchange = () => {
-  if ($('shape').value !== 'gamma') $('position').value = '';
   syncShape(); page=0; load();
 };
 $('previous').onclick = () => {page--; load();};

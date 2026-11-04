@@ -1,0 +1,31 @@
+{
+  "baseline_sha256": "3690eca7016d8092976285f0b376cf81d4a261cd257c283736dd4b0f59a47fc3",
+  "snapshot_sha256": "1210c5af0fee2c15b361f91902bc0d64d5477a1f5d6be48fc00dd810f67e1b29",
+  "preserved_unchanged": {
+    "editions": 732,
+    "ingest_log": 2045,
+    "isopsephy_results": 27,
+    "isopsephy_audit": 8828,
+    "frequencies": 48,
+    "frequency_runs": 2,
+    "acrostic_results": 27471,
+    "passages": 71790
+  },
+  "ingest_statuses": {
+    "included": 732,
+    "no_verse": 1309,
+    "rejected": 4
+  },
+  "editions": 732,
+  "line_records": 260885,
+  "included_dictionary_words": 83891,
+  "telestic_eligible_lines": 253313,
+  "telestics_by_direction": {
+    "forward": 13749,
+    "reverse": 13344
+  },
+  "telestic_scores_independently_verified": 27093,
+  "snapshot_passages_exactly_match_full_run": 113571,
+  "existing_results_removed": 0,
+  "unsupported_end_positions": []
+}

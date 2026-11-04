@@ -4,15 +4,14 @@ import argparse
 import json
 import math
 from pathlib import Path
-from corpus import metrical_lines, open_database
+from corpus import metrical_lines, open_database, position_index
 
 ROOT = Path(__file__).resolve().parent
 DIRECTION = 'forward'
 
 
 def search(db, position):
-    if position < 1:
-        raise ValueError('Position must be at least 1')
+    index = position_index(position)
     probabilities = {r['letter']: r['probability'] for r in
                      db.execute('SELECT * FROM frequencies WHERE position=?', (position,))}
     if not probabilities:
@@ -28,10 +27,10 @@ def search(db, position):
             for end in range(start, min(start + longest, len(lines))):
                 line, barrier = lines[end]
                 if (line['unit'] != first['unit'] or line['issue'] or
-                        len(line['letters']) < position or
+                        len(line['letters']) < max(1, position) or
                         (end > start and barrier)):
                     break
-                letters.append(line['letters'][position - 1])
+                letters.append(line['letters'][index])
                 if len(letters) < shortest:
                     continue
                 word = ''.join(letters)
@@ -48,7 +47,7 @@ def search(db, position):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--position', type=int, required=True, help='1=first Greek letter, 2=second, etc.')
+    p.add_argument('--position', type=int, required=True, help='1=first Greek letter, 2=second, etc.; -1=final Greek letter')
     p.add_argument('--database', type=Path, default=ROOT / 'output/research.sqlite3')
     a = p.parse_args()
     with open_database(a.database) as db:

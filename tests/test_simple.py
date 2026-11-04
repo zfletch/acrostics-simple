@@ -53,6 +53,40 @@ class SimpleTests(unittest.TestCase):
         self.assertEqual(reverse(db, 2), 1)
         self.assertEqual(db.execute("SELECT log2_score FROM acrostics WHERE word='ΝΟΟΣ'").fetchone()[0], 6)
 
+    def test_telestics_use_final_letters_and_separate_frequencies(self):
+        db = self.database()
+        self.lines(db, ['ἀν!', 'βο;', 'γο', 'δς·'])
+        for word in ['ΑΒΓΔ', 'ΔΓΒΑ', 'ΝΟΟΣ', 'ΣΟΟΝ']:
+            db.execute('INSERT INTO dictionary VALUES(?,2,1,1)', (word,))
+        calculate(db, 1)
+        forward(db, 1)
+        reverse(db, 1)
+        with self.assertRaises(ValueError):
+            forward(db, -1)  # Initial-letter probabilities are insufficient.
+        f = calculate(db, -1)
+        self.assertEqual(f['counts'], {'Ν': 1, 'Ο': 2, 'Σ': 1})
+        self.assertEqual(forward(db, -1), 1)
+        self.assertEqual(reverse(db, -1), 1)
+        self.assertEqual([tuple(r) for r in db.execute('SELECT word,log2_score FROM acrostics WHERE position=-1 ORDER BY word')], [('ΝΟΟΣ',6),('ΣΟΟΝ',6)])
+        calculate(db, -1)
+        self.assertEqual(db.execute('SELECT count(*) FROM acrostics WHERE position=-1').fetchone()[0], 0)
+        self.assertEqual(db.execute('SELECT count(*) FROM acrostics WHERE position=1').fetchone()[0], 2)
+        for position in [-2, -3, 0]:
+            for action in [calculate, forward, reverse]:
+                with self.assertRaises(ValueError):
+                    action(db, position)
+
+    def test_telestics_respect_barriers_and_source_boundaries(self):
+        for kwargs in [dict(units=['a','a','b','b']), dict(sequences=[0,1,3,4]),
+                       dict(issues=['','','split_line',''])]:
+            db = self.database()
+            self.lines(db, ['ωα','ωβ','ωγ','ωδ'], **kwargs)
+            for word in ['ΑΒΓΔ','ΔΓΒΑ']:
+                db.execute('INSERT INTO dictionary VALUES(?,2,1,1)', (word,))
+            calculate(db,-1)
+            self.assertEqual(forward(db,-1),0)
+            self.assertEqual(reverse(db,-1),0)
+
     def test_short_line_is_a_barrier(self):
         db = self.database()
         self.lines(db, ['αα', 'β', 'γβ', 'δγ', 'εδ'])

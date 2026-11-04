@@ -1,6 +1,47 @@
+# Telestics and source highlighting — 4 November 2026
+
+Rebuilt from default-branch commit `87654bd392e5f287c4e06d877fc9f72860fdc64d`
+and the same pinned source repositories. The new snapshot contains **54,564
+letter-pattern candidates**: 27,471 preserved acrostics and **27,093 telestics**
+(13,749 forward, 13,344 reverse). All **27 isopsephy results** remain unchanged.
+There are **113,571 passage lines**, including every previous passage unchanged.
+
+Position `-1` selects the final normalized Greek letter. Its frequencies were
+calculated independently from all 253,313 eligible lines in the fresh full run;
+second-from-end searching is rejected. The import retains all 732 editions,
+260,885 line records, and 2,045 ingest decisions (732 included, 1,309 without
+verse, four pre-existing rejected files). The dictionary retains 83,891 included
+word forms. No parser, normalization, or numerical-value rules changed.
+
+The public and local viewers show each source line once, highlighting the
+selected source letter with its original accents. The public Γ/L filter also
+supports telestics at the last word on the ending line of the vertical reading:
+bottom forward, top reverse. It finds **583 three-letter suffix matches**, of
+which **four are whole-word matches**. The existing initial-letter Γ/L set is
+unchanged (112 three-letter, five whole-word). Matching horizontal letters and
+vertical corner letters are marked in the source text.
+
+Validation evidence:
+
+- `output/telestics-run.txt`: complete frequency/search/isopsephy run counts.
+- `output/telestics-comparison.json`: exact preservation of all old result rows,
+  scores, passages, edition metadata, frequencies and ingest/isopsephy audits;
+  independent final-letter counts and scores; complete snapshot export.
+- `output/corpus-verification.json`: all 54,564 reading paths and known examples.
+- `output/telestics-tests.txt`: Python/Node checks, including source mapping on
+  every published passage and static query parity for the new position and Γ/L.
+- `output/telestics-browser.json`: desktop/mobile browser checks of both viewers,
+  both telestic directions, Γ/L modes, text preservation, filters, scores,
+  existing acrostics/isopsephy, loading failures, and layout.
+
+The committed snapshot is ready for the normal Pages publication on merge.
+Pull requests now run the build/test workflow without deploying. Results retain
+the existing corpus/boundary limitations and are candidates, not evidence of
+intention. The earlier reports below are historical evidence.
+
 # Source-structure corrections — 1 November 2026
 
-The current snapshot contains **27,471 acrostic candidates**, **27 isopsephy
+The 1 November snapshot contained **27,471 acrostic candidates**, **27 isopsephy
 results** (23 two-line-group, 4 individual-line), and **71,790 passage lines**.
 It was rebuilt from the same pinned XML sources, with every Greek reading
 unchanged. The original full database and Mini viewer were preserved.

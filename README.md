@@ -19,37 +19,45 @@ individual TEI headers for applicable source terms.
 
 ## Browse the results online
 
-The public viewer is at **https://zfletch.github.io/acrostics-simple/**. The source
-repository stays private. The site publishes 27,471 acrostic
+The public viewer is at **https://zfletch.github.io/acrostics-simple/**.
+The site publishes 27,471 acrostic and 27,093 telestic
 candidates, 27 whole-poem isopsephy results, their required Greek passages, and
 edition attribution. Its [methods and licenses](https://zfletch.github.io/acrostics-simple/methods.html)
-explain the scores, iota conventions, source pins, and text normalization.
+explain the scores, source pins, and text processing.
 
 The website runs entirely in the browser. It does not need the Mini or a Python
 server. Passage files load by edition only when a result is selected. The local
 viewer below remains available independently.
 
-### Γ/L acrostic filter
+### Letter positions and Γ/L filter
 
-The public viewer can restrict results to first-letter (position 1) Γ/L patterns.
-In a forward (Γ) acrostic, the vertical word is compared to the first Greek word
-of the **uppermost** line; in a reverse (L) acrostic, it is compared to the first
-Greek word of the **lowermost** line. The direction selector can further restrict
-to Γ or L. Both readings use the existing accent-insensitive Greek normalization.
+The letter-position selector includes first-letter acrostics, existing second-letter
+patterns, and **Telestic · final letter**. All three can be read forward or reverse.
+Only the final Greek letter is searched from the end; second-from-end positions
+are not supported. The passage shows the original source line once, with its
+selected letter highlighted directly, preserving its accents and punctuation.
 
-- **First three letters:** the initial three normalized Greek letters of the
-  vertical and horizontal words agree; the remaining letters may differ.
-- **Whole word:** the entire normalized vertical acrostic is identical to the
-  horizontal first word, with no extra letters.
+The public viewer's Γ/L filter supports first-letter acrostics and telestics.
+For an acrostic, the first word at the **start** of the vertical reading supplies
+the horizontal match: the uppermost line for forward Γ, the lowermost for reverse L.
+For a telestic, use the last word at the **end** of the vertical reading: the
+lowermost line for forward L, the uppermost for reverse Γ.
 
-Matching is computed from the committed results snapshot during the static
-site build, not by rerunning the research search. Therefore this is a filter over
-the existing dictionary-derived candidates, not an exhaustive search for
-otherwise excluded Γ/L patterns. The local SQLite viewer is unchanged.
+- **Three corner letters:** compare the first three letters for acrostics or
+  the final three for telestics; the remaining letters may differ.
+- **Whole word:** the complete normalized vertical and horizontal words agree,
+  with no extra letters.
+
+The selected vertical path is underlined in the source text; the matching
+horizontal word (or three-letter part) and vertical corner have a green highlight.
+Matching uses the existing Greek normalization. The static build computes this
+filter over dictionary-derived candidates, not an exhaustive search for otherwise
+excluded Γ/L patterns. The local SQLite viewer supports telestics and direct
+source highlighting; Γ/L filtering remains a public-viewer feature.
 
 ## Browse the included results locally
 
-Clone the private repository using an account with access:
+Clone the repository:
 
 ```sh
 git clone https://github.com/zfletch/acrostics-simple.git
@@ -60,8 +68,9 @@ python3 viewer.py
 
 Python 3.9+ is enough to run the viewer. No corpus download, database rebuild,
 package installation, or external web service is needed. The included
-`output/results.sqlite3` contains 27,471 acrostic candidates, 27 whole-poem
-isopsephy matches, and their passages. The viewer stays on the local computer.
+`output/results.sqlite3` contains 54,564 letter-pattern candidates (27,471
+acrostics and 27,093 telestics), 27 whole-poem isopsephy matches, and their
+passages. The viewer stays on the local computer.
 
 ## Build or update the public viewer
 
@@ -86,8 +95,13 @@ or live site URL, including its trailing slash. Its default URL is
 `http://127.0.0.1:8877/acrostics-simple/`; use a parent preview directory to test
 that project path. Browser screenshots and results go to ignored
 `output/pages-browser/` or `HEADLESS_OUTPUT`.
+`tests/headless_telestics.cjs` checks final-letter source highlighting and Γ/L at
+desktop/mobile widths in both viewers; set `PAGES_URL` and `VIEWER_URL` to their
+local preview addresses. `tests/compare_telestics.py --baseline PATH` compares
+a rebuilt full database/snapshot against a preserved earlier snapshot.
 
-The **Publish results viewer** Actions workflow builds from `main`, runs the
+The **Publish results viewer** Actions workflow validates pull requests without
+deploying, and builds from `main` for publication. It runs the
 Python and Node parity checks, uploads only `_site/`, and deploys to the
 `github-pages` environment. Relevant changes to `main` trigger publication; the
 workflow can also be dispatched manually. Updating the bundled snapshot publishes
@@ -111,10 +125,13 @@ python3 download_corpora.py
 python3 build_dictionary.py --database output/new-run.sqlite3
 python3 calculate_frequencies.py --database output/new-run.sqlite3 --position 1
 python3 calculate_frequencies.py --database output/new-run.sqlite3 --position 2
+python3 calculate_frequencies.py --database output/new-run.sqlite3 --position -1
 python3 search_forward.py --database output/new-run.sqlite3 --position 1
 python3 search_reverse.py --database output/new-run.sqlite3 --position 1
 python3 search_forward.py --database output/new-run.sqlite3 --position 2
 python3 search_reverse.py --database output/new-run.sqlite3 --position 2
+python3 search_forward.py --database output/new-run.sqlite3 --position -1
+python3 search_reverse.py --database output/new-run.sqlite3 --position -1
 python3 search_isopsephy.py --database output/new-run.sqlite3 --group-size 2
 python3 search_isopsephy.py --database output/new-run.sqlite3 --group-size 1
 python3 -m unittest discover -s tests -v
@@ -128,8 +145,10 @@ use a fresh filename for each rebuild. The other five processing commands only
 accept this project's full processing database format. Searches replace only
 results for their own direction/position or group size. Recalculating a frequency
 position removes that position's old acrostic scores; rerun both searches afterwards.
-Any positive position is accepted; a line shorter than that position breaks a
-window, and a frequency calculation with no eligible lines stops with an error.
+Positive positions count from the start. Position **-1** means the final Greek
+letter and has its own frequencies and results; other negative positions and zero
+are rejected. A line shorter than the requested position breaks a window, and
+a frequency calculation with no eligible lines stops with an error.
 
 ```sh
 sqlite3 -header -column output/new-run.sqlite3 \
@@ -158,7 +177,7 @@ snapshot, provenance, comparison results, and validation evidence are tracked.
 |---|---|
 | `download_corpora.py` | Download two exact commits, check them out detached, and record them. Reuse only clean, exact existing checkouts. |
 | `build_dictionary.py` | Read TEI once, store source text and boundaries, count normalized word forms and edition frequencies. |
-| `calculate_frequencies.py` | Count empirical Greek letters at the requested one-based position. |
+| `calculate_frequencies.py` | Count empirical Greek letters at the requested start position or final letter (-1). |
 | `search_forward.py` | Read that letter top-to-bottom across consecutive lines; keep dictionary matches. |
 | `search_reverse.py` | Read the same letter bottom-to-top; keep dictionary matches. |
 | `search_isopsephy.py` | Compare sums of successive equal-size groups across an entire explicitly encoded poem. |
@@ -243,11 +262,12 @@ filters are **4–12 normalized letters and at least 2 corpus occurrences**.
 `dictionary` stores all forms with an `included` flag. Edition count is provenance,
 not a score factor. Duplicate editions can increase both token and letter counts.
 
-For position `k`, let `p_k(c)` be the number of eligible lines whose kth Greek
-letter is `c`, divided by the total eligible lines for that position. A short
+For position `k`, let `p_k(c)` be the fraction of eligible lines whose kth
+Greek letter is `c`; `k = -1` selects the final letter instead. A short
 or unusable line is outside this denominator. Forward and reverse searches share
 these positional marginals because reversing a window does not change the
-product of its letter probabilities.
+product of its letter probabilities. Telestic scores use empirical final-letter
+frequencies across all eligible corpus lines, never initial-letter frequencies.
 
 The chosen score is exactly:
 
@@ -296,6 +316,18 @@ fixture verifies pair totals **6,903 / 6,903** when the iota in `νηῷ` is omi
 and **6,903 / 6,913** when counted. Numerical equality alone establishes no
 intentionality, novelty, chronology or statistical significance.
 
+## Telestic update validation
+
+The full pinned-corpus rebuild imports 732 editions and 260,885 line records.
+Final-letter statistics include 253,313 eligible lines. It adds 13,749 forward
+and 13,344 reverse telestics. The snapshot has 113,571 passage lines.
+`output/telestics-comparison.json` verifies preservation of all previous results,
+scores, passages, frequency rows, editions, ingest decisions, and isopsephy audits;
+`output/corpus-verification.json` verifies every one of the 54,564 reading paths.
+`tests/test_source_letters.py` checks source mapping for every published passage.
+The Γ/L index contains 583 new three-corner-letter telestics, including four
+whole-word matches. These are candidates, not claims of intention.
+
 ## Validation and previous results
 
 See `REPORT.md`, `output/tests.txt`, `output/comparison.json` and the full
@@ -335,7 +367,7 @@ python3 viewer.py
 The viewer reads `output/results.sqlite3` in SQLite read-only mode. It binds
 only to 127.0.0.1, has no remote assets or dependencies, and does not edit results.
 Search by Greek word, author, title or citation; filter position/direction, sort,
-then select a row to read the original passage and marked normalized letters.
+then select a row to read the original passage with the selected source letters marked.
 The Isopsephy tab shows complete poem passages and both iota conventions.
 
 The optional `tests/save_snapshot.py` exporter reads specifically from
@@ -347,7 +379,8 @@ to replace an existing `output/results.sqlite3`. The exporter also regenerates
 before choosing the same filename. This is a static result snapshot: the viewer
 does not silently recompute the corpus or run searches on the server.
 
-The UI is a separate second Git commit. A third follow-up commit fixes a
+Historical local-viewer validation (before the telestic update): the UI is a
+separate second Git commit. A third follow-up commit fixes a
 malformed Forward menu option and widens mobile controls, after headless testing.
 Both earlier commits are preserved. All 17 core/viewer tests pass, as do the
 JavaScript syntax check and the optional headless browser checks.

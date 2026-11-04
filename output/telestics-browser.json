@@ -1,0 +1,331 @@
+{
+  "public_regression": {
+    "url": "http://127.0.0.1:8877/",
+    "browser": "153.0.8010.12",
+    "desktop": {
+      "width": 1365,
+      "scrollWidth": 1365
+    },
+    "mobile": {
+      "width": 390,
+      "scrollWidth": 390
+    },
+    "mobileISO": {
+      "width": 390,
+      "scrollWidth": 390
+    },
+    "recoveredPoems": [
+      "6.321",
+      "6.324",
+      "6.325",
+      "6.326",
+      "6.327",
+      "6.329",
+      "7.547",
+      "7.548"
+    ],
+    "checks": [
+      "counts",
+      "lazy passages",
+      "paging",
+      "all sorts",
+      "combined filters",
+      "accented Greek search",
+      "keyboard selection",
+      "Homer reverse ΕΚΤΩΡ",
+      "Quintus second-letter ΕΛΛΗΝΕΣ",
+      "Euripides ΕΡΑΣΑΙ",
+      "literal wildcard search",
+      "AP8.39 both iota conventions",
+      "mobile layout",
+      "source link",
+      "methods and license",
+      "manifest failure recovery",
+      "index failure recovery",
+      "passage failure recovery",
+      "stale failed request ignored"
+    ],
+    "pageErrors": []
+  },
+  "local_regression": {
+    "browser": "153.0.8010.12",
+    "mode": "separate headless Chromium, fresh context, chromiumSandbox:true",
+    "desktop": {
+      "width": 1365,
+      "scrollWidth": 1365
+    },
+    "mobile": {
+      "width": 390,
+      "scrollWidth": 390
+    },
+    "checks": [
+      "initial counts",
+      "50-row paging",
+      "descending score",
+      "next/previous page",
+      "accented Greek search",
+      "direction/position filters",
+      "forward highlights",
+      "reverse highlights",
+      "empty search",
+      "AP8.39 totals",
+      "mobile selection",
+      "no horizontal overflow",
+      "no JavaScript page errors"
+    ],
+    "screenshots": [
+      "desktop-helen.png",
+      "desktop-ap8-39.png",
+      "mobile-helen.png"
+    ],
+    "pageErrors": []
+  },
+  "telestic_desktop_mobile": {
+    "browser": "153.0.8010.12",
+    "checks": [
+      {
+        "surface": "public",
+        "width": 1365,
+        "direction": "forward",
+        "mode": "all telestics",
+        "count": 13749,
+        "word": "ΔΕΙΜΕ"
+      },
+      {
+        "surface": "public",
+        "width": 1365,
+        "direction": "forward",
+        "mode": "first3",
+        "count": 293,
+        "word": "ΝΕΙΟΙΟ"
+      },
+      {
+        "surface": "public",
+        "width": 1365,
+        "direction": "forward",
+        "mode": "whole",
+        "count": 3,
+        "word": "ΑΝΑΞ"
+      },
+      {
+        "surface": "public",
+        "width": 1365,
+        "direction": "reverse",
+        "mode": "all telestics",
+        "count": 13344,
+        "word": "ΡΑΒΔΩ"
+      },
+      {
+        "surface": "public",
+        "width": 1365,
+        "direction": "reverse",
+        "mode": "first3",
+        "count": 290,
+        "word": "ΟΡΙΝΗΣ"
+      },
+      {
+        "surface": "public",
+        "width": 1365,
+        "direction": "reverse",
+        "mode": "whole",
+        "count": 1,
+        "word": "ΑΣΙΝ"
+      },
+      {
+        "surface": "public",
+        "width": 390,
+        "direction": "forward",
+        "mode": "all telestics",
+        "count": 13749,
+        "word": "ΔΕΙΜΕ"
+      },
+      {
+        "surface": "public",
+        "width": 390,
+        "direction": "forward",
+        "mode": "first3",
+        "count": 293,
+        "word": "ΝΕΙΟΙΟ"
+      },
+      {
+        "surface": "public",
+        "width": 390,
+        "direction": "forward",
+        "mode": "whole",
+        "count": 3,
+        "word": "ΑΝΑΞ"
+      },
+      {
+        "surface": "public",
+        "width": 390,
+        "direction": "reverse",
+        "mode": "all telestics",
+        "count": 13344,
+        "word": "ΡΑΒΔΩ"
+      },
+      {
+        "surface": "public",
+        "width": 390,
+        "direction": "reverse",
+        "mode": "first3",
+        "count": 290,
+        "word": "ΟΡΙΝΗΣ"
+      },
+      {
+        "surface": "public",
+        "width": 390,
+        "direction": "reverse",
+        "mode": "whole",
+        "count": 1,
+        "word": "ΑΣΙΝ"
+      },
+      {
+        "surface": "local",
+        "width": 1365,
+        "direction": "forward",
+        "mode": "all telestics",
+        "count": 13749,
+        "word": "ΔΕΙΜΕ"
+      },
+      {
+        "surface": "local",
+        "width": 1365,
+        "direction": "reverse",
+        "mode": "all telestics",
+        "count": 13344,
+        "word": "ΡΑΒΔΩ"
+      },
+      {
+        "surface": "local",
+        "width": 390,
+        "direction": "forward",
+        "mode": "all telestics",
+        "count": 13749,
+        "word": "ΔΕΙΜΕ"
+      },
+      {
+        "surface": "local",
+        "width": 390,
+        "direction": "reverse",
+        "mode": "all telestics",
+        "count": 13344,
+        "word": "ΡΑΒΔΩ"
+      }
+    ],
+    "layouts": [
+      {
+        "surface": "public",
+        "direction": "forward",
+        "mode": null,
+        "width": 1365,
+        "scrollWidth": 1365
+      },
+      {
+        "surface": "public",
+        "direction": "forward",
+        "mode": "first3",
+        "width": 1365,
+        "scrollWidth": 1365
+      },
+      {
+        "surface": "public",
+        "direction": "forward",
+        "mode": "whole",
+        "width": 1365,
+        "scrollWidth": 1365
+      },
+      {
+        "surface": "public",
+        "direction": "reverse",
+        "mode": null,
+        "width": 1365,
+        "scrollWidth": 1365
+      },
+      {
+        "surface": "public",
+        "direction": "reverse",
+        "mode": "first3",
+        "width": 1365,
+        "scrollWidth": 1365
+      },
+      {
+        "surface": "public",
+        "direction": "reverse",
+        "mode": "whole",
+        "width": 1365,
+        "scrollWidth": 1365
+      },
+      {
+        "surface": "public",
+        "direction": "forward",
+        "mode": null,
+        "width": 390,
+        "scrollWidth": 390
+      },
+      {
+        "surface": "public",
+        "direction": "forward",
+        "mode": "first3",
+        "width": 390,
+        "scrollWidth": 390
+      },
+      {
+        "surface": "public",
+        "direction": "forward",
+        "mode": "whole",
+        "width": 390,
+        "scrollWidth": 390
+      },
+      {
+        "surface": "public",
+        "direction": "reverse",
+        "mode": null,
+        "width": 390,
+        "scrollWidth": 390
+      },
+      {
+        "surface": "public",
+        "direction": "reverse",
+        "mode": "first3",
+        "width": 390,
+        "scrollWidth": 390
+      },
+      {
+        "surface": "public",
+        "direction": "reverse",
+        "mode": "whole",
+        "width": 390,
+        "scrollWidth": 390
+      },
+      {
+        "surface": "local",
+        "direction": "forward",
+        "mode": null,
+        "width": 1365,
+        "scrollWidth": 1365
+      },
+      {
+        "surface": "local",
+        "direction": "reverse",
+        "mode": null,
+        "width": 1365,
+        "scrollWidth": 1365
+      },
+      {
+        "surface": "local",
+        "direction": "forward",
+        "mode": null,
+        "width": 390,
+        "scrollWidth": 390
+      },
+      {
+        "surface": "local",
+        "direction": "reverse",
+        "mode": null,
+        "width": 390,
+        "scrollWidth": 390
+      }
+    ],
+    "pageErrors": []
+  }
+}
