@@ -43,6 +43,14 @@ export function createStore(base = './', fetcher = (...args) => fetch(...args)) 
         const e = data.editions[row.edition_id];
         return {urn:e.urn, author:e.author, title:e.title, source_path:e.source_path, source_url:e.source_url, ...row};
       });
+      const matches = data.gamma_matches;
+      if (!matches || !['first3','whole'].every(mode => Array.isArray(matches[mode]) &&
+          matches[mode].every(i => Number.isInteger(i) && data.acrostics[i]))) {
+        throw Error('The published Γ/L match data is unavailable. Reload the viewer.');
+      }
+      data.gammaSets = Object.fromEntries(['first3','whole'].map(mode =>
+        [mode, new Set(matches[mode].map(i => data.acrostics[i]))]));
+      delete data.gamma_matches;
       return data;
     }).catch(e => {indexPromise = null; throw e;});
     return indexPromise;
@@ -61,6 +69,10 @@ export function createStore(base = './', fetcher = (...args) => fetch(...args)) 
     }
     for (const field of kind === 'acrostic' ? ['direction','position'] : ['group_size']) {
       if (args[field]) rows = rows.filter(r => String(r[field]) === String(args[field]));
+    }
+    if (kind === 'acrostic' && args.shape === 'gamma') {
+      const matches = data.gammaSets[args.gamma_match === 'whole' ? 'whole' : 'first3'];
+      rows = rows.filter(r => r.position === 1 && matches.has(r));
     }
     const order = kind === 'isopsephy' ? orders.isopsephy : orders[args.sort] || orders.score;
     rows = rows.slice().sort((a,b) => {
