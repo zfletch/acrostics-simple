@@ -29,6 +29,24 @@ The website runs entirely in the browser. It does not need the Mini or a Python
 server. Passage files load by edition only when a result is selected. The local
 viewer below remains available independently.
 
+### Γ/L acrostic filter
+
+The public viewer can restrict results to first-letter (position 1) Γ/L patterns.
+In a forward (Γ) acrostic, the vertical word is compared to the first Greek word
+of the **uppermost** line; in a reverse (L) acrostic, it is compared to the first
+Greek word of the **lowermost** line. The direction selector can further restrict
+to Γ or L. Both readings use the existing accent-insensitive Greek normalization.
+
+- **First three letters:** the initial three normalized Greek letters of the
+  vertical and horizontal words agree; the remaining letters may differ.
+- **Whole word:** the entire normalized vertical acrostic is identical to the
+  horizontal first word, with no extra letters.
+
+Matching is computed from the committed results snapshot during the static
+site build, not by rerunning the research search. Therefore this is a filter over
+the existing dictionary-derived candidates, not an exhaustive search for
+otherwise excluded Γ/L patterns. The local SQLite viewer is unchanged.
+
 ## Browse the included results locally
 
 Clone the private repository using an account with access:
