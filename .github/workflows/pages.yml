@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - 'pages/**'
-      - 'viewer/style.css'
+      - 'viewer/**'
       - 'build_pages.py'
       - 'output/results.sqlite3'
       - 'provenance/**'
@@ -13,13 +13,15 @@ on:
       - 'tests/test_pages.py'
       - 'tests/static_data.mjs'
       - '.github/workflows/pages.yml'
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: github-pages
+  group: github-pages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:

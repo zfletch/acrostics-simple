@@ -214,6 +214,13 @@ def extract(path):
     return metadata, poems, lines
 
 
+def position_index(position):
+    """Positive positions count from the start; -1 is the final Greek letter."""
+    if position != -1 and position < 1:
+        raise ValueError('Position must be positive or -1 (final letter)')
+    return -1 if position == -1 else position - 1
+
+
 def open_database(path):
     """Only open a database created by this project, never an old research DB."""
     import sqlite3

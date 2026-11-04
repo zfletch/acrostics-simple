@@ -5,7 +5,7 @@ from pathlib import Path
 import sqlite3
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from corpus import SPEAKER_ONLY, line_boundary
+from corpus import SPEAKER_ONLY, line_boundary, position_index
 
 ROOT = Path(__file__).resolve().parents[1]
 db = sqlite3.connect((ROOT / 'output/research.sqlite3').as_uri() + '?mode=ro', uri=True)
@@ -19,8 +19,8 @@ for r in db.execute('SELECT * FROM acrostics'):
     assert all(not line_boundary(a,b) for a,b in zip(source_rows,source_rows[1:]))
     passage = [line for line in source_rows if line['issue'] != SPEAKER_ONLY]
     assert len({line['unit'] for line in passage}) == 1
-    assert all(not line['issue'] and len(line['letters']) >= r['position'] for line in passage)
-    reading = ''.join(line['letters'][r['position']-1] for line in passage)
+    assert all(not line['issue'] and len(line['letters']) >= max(1, r['position']) for line in passage)
+    reading = ''.join(line['letters'][position_index(r['position'])] for line in passage)
     assert (reading if r['direction'] == 'forward' else reading[::-1]) == r['word']
     checked += 1
 examples = [

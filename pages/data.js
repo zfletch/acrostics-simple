@@ -72,7 +72,7 @@ export function createStore(base = './', fetcher = (...args) => fetch(...args)) 
     }
     if (kind === 'acrostic' && args.shape === 'gamma') {
       const matches = data.gammaSets[args.gamma_match === 'whole' ? 'whole' : 'first3'];
-      rows = rows.filter(r => r.position === 1 && matches.has(r));
+      rows = rows.filter(r => [1,-1].includes(r.position) && matches.has(r));
     }
     const order = kind === 'isopsephy' ? orders.isopsephy : orders[args.sort] || orders.score;
     rows = rows.slice().sort((a,b) => {

@@ -1,0 +1,41 @@
+test_every_exported_result_and_passage_matches_snapshot (test_pages.PagesTests) ... ok
+test_gamma_corner_counterexamples_and_whole_word (test_pages.PagesTests) ... ok
+test_gamma_match_index_uses_correct_word_and_vertical_edge (test_pages.PagesTests) ... ok
+test_javascript_queries_match_python_viewer (test_pages.PagesTests) ... ok
+test_only_public_allowlist_and_resolving_relative_links (test_pages.PagesTests) ... ok
+test_refuses_existing_destination (test_pages.PagesTests) ... ok
+test_ap839_genuine_search_and_iota_conventions (test_simple.SimpleTests) ... ok
+test_editions_never_join_and_nonwords_not_emitted (test_simple.SimpleTests) ... ok
+test_equal_window_in_longer_poem_is_not_a_whole_poem_hit (test_simple.SimpleTests) ... ok
+test_forward_reverse_and_exact_score (test_simple.SimpleTests) ... ok
+test_new_isopsephic_fixture_is_found (test_simple.SimpleTests) ... ok
+test_normalization (test_simple.SimpleTests) ... ok
+test_numbering_gap_is_a_barrier (test_simple.SimpleTests) ... ok
+test_numerical_values_and_explicit_iota (test_simple.SimpleTests) ... ok
+test_short_line_is_a_barrier (test_simple.SimpleTests) ... ok
+test_telestics_respect_barriers_and_source_boundaries (test_simple.SimpleTests) ... ok
+test_telestics_use_final_letters_and_separate_frequencies (test_simple.SimpleTests) ... ok
+test_units_gaps_and_invalid_lines_break_windows (test_simple.SimpleTests) ... ok
+test_unknown_database_is_not_modified (test_simple.SimpleTests) ... ok
+test_xml_boundaries_and_reading (test_simple.SimpleTests) ... ok
+test_source_maps_and_corner_highlights (test_source_letters.SourceLetterTests) ... ok
+test_actual_ap7548_and_neighbor_controls (test_verse_units.VerseUnitTests) ... ok
+test_actual_book6_declared_epigrams (test_verse_units.VerseUnitTests) ... ok
+test_damaged_verse_and_prose_chapter_still_fail_isopsephy (test_verse_units.VerseUnitTests) ... ok
+test_empty_editorial_or_incomplete_lines_are_not_speaker_exceptions (test_verse_units.VerseUnitTests) ... ok
+test_inline_speaker_label_does_not_erase_a_real_line (test_verse_units.VerseUnitTests) ... ok
+test_labels_cannot_bridge_numbering_or_xml_gaps (test_verse_units.VerseUnitTests) ... ok
+test_nested_divisions_remain_boundaries (test_verse_units.VerseUnitTests) ... ok
+test_only_declared_edition_and_hierarchy_get_chapter_poems (test_verse_units.VerseUnitTests) ... ok
+test_speaker_records_are_skipped_without_losing_original_endpoints (test_verse_units.VerseUnitTests) ... ok
+test_whole_poem_checks_leading_and_trailing_speaker_adjacency (test_verse_units.VerseUnitTests) ... ok
+test_direction_menu_contains_both_options (test_viewer.ViewerTests) ... ok
+test_queries_are_data_and_snapshot_read_only (test_viewer.ViewerTests) ... ok
+test_search_and_direction (test_viewer.ViewerTests) ... ok
+test_sort_and_pagination (test_viewer.ViewerTests) ... ok
+test_whole_poem (test_viewer.ViewerTests) ... ok
+
+----------------------------------------------------------------------
+Ran 36 tests in 17.829s
+
+OK

@@ -10,7 +10,7 @@ from corpus import normalized
 
 ROOT = Path(__file__).resolve().parent
 FILES = {'/': ('index.html', 'text/html'), '/app.js': ('app.js', 'text/javascript'),
-         '/style.css': ('style.css', 'text/css')}
+         '/style.css': ('style.css', 'text/css'), '/letters.js': ('letters.js', 'text/javascript')}
 
 
 def connect(path):

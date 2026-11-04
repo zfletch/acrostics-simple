@@ -30,23 +30,25 @@ def packed(db, table, columns, where='', parameters=(), order=''):
 
 
 def gamma_matches(db, acrostics):
-    """Export row indexes for first-word Γ/L matches, without altering search results."""
+    """Export row indexes for edge-word Γ/L matches, without altering search results."""
     matches = {'first3': [], 'whole': []}
     for index, row in enumerate(acrostics['rows']):
         direction, position, edition_id, start, end, word = row[:6]
-        if position != 1:
+        if position not in (1, -1):
             continue
-        # The uppermost verse supplies Γ; the lowermost verse supplies L.
-        edge = start if direction == 'forward' else end
+        # Acrostics meet the first word at the reading's start; telestics
+        # meet the last word at its end (bottom forward, top reverse).
+        edge = start if (direction == 'forward') == (position == 1) else end
         found = db.execute('SELECT text FROM passages WHERE edition_id=? AND sequence=?',
                            (edition_id, edge)).fetchone()
         if found is None:
             raise ValueError('Missing passage for acrostic boundary')
-        first_words = tokens(found[0])
-        if not first_words or len(first_words[0]) < 3 or len(word) < 3:
+        words = tokens(found[0])
+        if not words or len(word) < 3:
             continue
-        horizontal = first_words[0]
-        if word[:3] == horizontal[:3]:
+        horizontal = words[0 if position == 1 else -1]
+        corner = slice(0, 3) if position == 1 else slice(-3, None)
+        if len(horizontal) >= 3 and word[corner] == horizontal[corner]:
             matches['first3'].append(index)
             if word == horizontal:
                 matches['whole'].append(index)
@@ -100,6 +102,7 @@ def build(destination, database=None, revision=None):
     for name in ['index.html', 'app.js', 'data.js', 'pages.css']:
         shutil.copyfile(ROOT / 'pages' / name, destination / name)
     shutil.copyfile(ROOT / 'viewer/style.css', destination / 'style.css')
+    shutil.copyfile(ROOT / 'viewer/letters.js', destination / 'letters.js')
     shutil.copyfile(ROOT / 'LICENSE', destination / 'LICENSE.txt')
     for name in ['First1KGreek-license.md', 'canonical-greekLit-license.md']:
         shutil.copyfile(ROOT / 'provenance' / name, destination / name)
@@ -107,7 +110,7 @@ def build(destination, database=None, revision=None):
     source_link = 'https://github.com/zfletch/acrostics-simple/tree/' + revision
     template = (ROOT / 'pages/methods.html').read_text(encoding='utf-8')
     for key, value in {'COMMIT': revision, 'SNAPSHOT': digest, 'SOURCE_LINK': source_link,
-                       'COUNTS': f"{manifest['acrostics']:,} acrostic candidates, {manifest['isopsephy']:,} isopsephy results, {passage_count:,} passage lines"}.items():
+                       'COUNTS': f"{manifest['acrostics']:,} letter-pattern candidates, {manifest['isopsephy']:,} isopsephy results, {passage_count:,} passage lines"}.items():
         template = template.replace('{{' + key + '}}', html.escape(value, quote=True))
     (destination / 'methods.html').write_text(template, encoding='utf-8')
     return manifest

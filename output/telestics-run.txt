@@ -1,0 +1,12 @@
+{"database": "/Users/zfletch/Documents/Codex/2026-11-04/task/acrostics-simple-telestics/output/research.sqlite3", "editions": 732, "lines": 260885, "word_forms": 178761, "included_words": 83891}
+{"position": 1, "eligible_lines": 253313, "short_lines": 0, "invalid_lines": 7572, "counts": {"Α": 32487, "Β": 3298, "Γ": 3763, "Δ": 9686, "Ε": 31072, "Ζ": 1616, "Η": 11842, "Θ": 4144, "Ι": 5073, "Κ": 27226, "Λ": 4622, "Μ": 10395, "Ν": 5559, "Ξ": 966, "Ο": 25365, "Π": 20171, "Ρ": 1421, "Σ": 9084, "Τ": 24228, "Υ": 2708, "Φ": 4373, "Χ": 4359, "Ψ": 813, "Ω": 9042}}
+{"direction": "forward", "position": 1, "matches": 5202}
+{"direction": "reverse", "position": 1, "matches": 5161}
+{"position": 2, "eligible_lines": 253164, "short_lines": 149, "invalid_lines": 7572, "counts": {"Α": 39861, "Β": 730, "Γ": 3864, "Δ": 4556, "Ε": 20932, "Ζ": 466, "Η": 12926, "Θ": 1829, "Ι": 25584, "Κ": 5507, "Λ": 13561, "Μ": 6781, "Ν": 12053, "Ξ": 2179, "Ο": 21141, "Π": 8052, "Ρ": 14750, "Σ": 12975, "Τ": 6533, "Υ": 27230, "Φ": 2169, "Χ": 1905, "Ψ": 880, "Ω": 6700}}
+{"direction": "forward", "position": 2, "matches": 8549}
+{"direction": "reverse", "position": 2, "matches": 8559}
+{"position": -1, "eligible_lines": 253313, "short_lines": 0, "invalid_lines": 7572, "counts": {"Α": 20602, "Β": 369, "Γ": 186, "Δ": 468, "Ε": 8980, "Ζ": 81, "Η": 13804, "Θ": 171, "Ι": 35707, "Κ": 169, "Λ": 322, "Μ": 220, "Ν": 70027, "Ξ": 733, "Ο": 7268, "Π": 88, "Ρ": 4108, "Σ": 61587, "Τ": 217, "Υ": 13346, "Φ": 62, "Χ": 48, "Ψ": 88, "Ω": 14662}}
+{"direction": "forward", "position": -1, "matches": 13749}
+{"direction": "reverse", "position": -1, "matches": 13344}
+{"group_size": 2, "matches": 23, "poems": {"uncertain_or_incomplete_line": 15, "line_number_discontinuity": 2, "tested": 3042, "ineligible_line_count": 1242, "gap_or_damage": 54, "unsupported_alphabetic_character": 37, "prose_paragraph": 21, "unit_boundary": 1}}
+{"group_size": 1, "matches": 4, "poems": {"uncertain_or_incomplete_line": 15, "line_number_discontinuity": 2, "tested": 4238, "gap_or_damage": 54, "unsupported_alphabetic_character": 38, "prose_paragraph": 21, "ineligible_line_count": 45, "unit_boundary": 1}}
