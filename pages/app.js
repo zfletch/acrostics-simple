@@ -27,7 +27,7 @@ async function load() {
   $('page').textContent = '';
   $('result-error').hidden = $('retry').hidden = true;
   const args = {kind,page,q:$('q').value};
-  for (const id of kind === 'acrostic' ? ['direction','position','sort'] : ['group_size']) args[id] = $(id).value;
+  for (const id of kind === 'acrostic' ? ['direction','position','sort','shape','gamma_match'] : ['group_size']) args[id] = $(id).value;
   try {
     const data = await store.results(args);
     if (current !== version) return;
@@ -44,6 +44,7 @@ async function load() {
       top.append(el('span',kind === 'acrostic' ? row.word : `Poem ${row.citation}`,'word'));
       top.append(el('span',kind === 'acrostic' ? `${row.direction === 'forward' ? '↓' : '↑'} Position ${row.position}` :
         `${row.group_size === 1 ? 'Lines' : `Groups of ${row.group_size}`} · ${row.convention.replace('_only',' only')}`,'badge'));
+      if (kind === 'acrostic' && $('shape').value === 'gamma') top.append(el('span', row.direction === 'forward' ? 'Γ' : 'L','badge'));
       button.append(top,el('p',`${row.author} · ${row.title}`,'row-source'));
       const loc = el('div',kind === 'acrostic' ? `${row.start_citation}–${row.end_citation}` :
         `Omit ${JSON.parse(row.omit_totals).map(fmt).join(' / ')} · Count ${JSON.parse(row.count_totals).map(fmt).join(' / ')}`,'row-location');
@@ -143,7 +144,17 @@ $('q').addEventListener('input',() => {
   timer = setTimeout(load,180);
 });
 $('filters').onsubmit = e => {e.preventDefault(); page=0; load();};
-for (const id of ['direction','position','sort','group_size']) $(id).onchange = () => {page=0; load();};
+function syncShape() {
+  const active = kind === 'acrostic' && $('shape').value === 'gamma';
+  document.querySelectorAll('.gamma-mode').forEach(n => n.hidden = !active);
+  $('position').disabled = active;
+  if (active) $('position').value = '1';
+}
+for (const id of ['direction','position','sort','group_size','gamma_match']) $(id).onchange = () => {page=0; load();};
+$('shape').onchange = () => {
+  if ($('shape').value !== 'gamma') $('position').value = '';
+  syncShape(); page=0; load();
+};
 $('previous').onclick = () => {page--; load();};
 $('next').onclick = () => {page++; load();};
 $('retry').onclick = initialize;
@@ -152,8 +163,10 @@ for (const tab of document.querySelectorAll('.tab')) tab.onclick = () => {
   document.querySelectorAll('.tab').forEach(t => {t.classList.toggle('active',t === tab); t.setAttribute('aria-pressed',String(t === tab));});
   document.querySelectorAll('.acro').forEach(n => n.hidden = kind !== 'acrostic');
   document.querySelectorAll('.iso').forEach(n => n.hidden = kind !== 'isopsephy');
+  syncShape();
   $('explanation').textContent = kind === 'acrostic' ? 'Rarity = log₂ of the reciprocal letter-frequency product. Higher values favor longer strings and rarer letters; they do not measure intention.' :
     'Only explicitly encoded whole poems and epigrams are searched. Both iota conventions are shown; numerical equality alone does not establish intention.';
   load();
 };
+syncShape();
 initialize();

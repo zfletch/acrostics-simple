@@ -9,6 +9,7 @@ import re
 import shutil
 import sqlite3
 import subprocess
+from corpus import tokens
 
 ROOT = Path(__file__).resolve().parent
 ACRO_COLUMNS = ['direction', 'position', 'edition_id', 'start_sequence', 'end_sequence',
@@ -26,6 +27,30 @@ def json_file(path, value):
 def packed(db, table, columns, where='', parameters=(), order=''):
     return {'columns': columns, 'rows': [list(r) for r in db.execute(
         'SELECT ' + ','.join(columns) + ' FROM ' + table + where + order, parameters)]}
+
+
+def gamma_matches(db, acrostics):
+    """Export row indexes for first-word Γ/L matches, without altering search results."""
+    matches = {'first3': [], 'whole': []}
+    for index, row in enumerate(acrostics['rows']):
+        direction, position, edition_id, start, end, word = row[:6]
+        if position != 1:
+            continue
+        # The uppermost verse supplies Γ; the lowermost verse supplies L.
+        edge = start if direction == 'forward' else end
+        found = db.execute('SELECT text FROM passages WHERE edition_id=? AND sequence=?',
+                           (edition_id, edge)).fetchone()
+        if found is None:
+            raise ValueError('Missing passage for acrostic boundary')
+        first_words = tokens(found[0])
+        if not first_words or len(first_words[0]) < 3 or len(word) < 3:
+            continue
+        horizontal = first_words[0]
+        if word[:3] == horizontal[:3]:
+            matches['first3'].append(index)
+            if word == horizontal:
+                matches['whole'].append(index)
+    return matches
 
 
 def build(destination, database=None, revision=None):
@@ -46,6 +71,7 @@ def build(destination, database=None, revision=None):
         db.execute('PRAGMA query_only=ON')
         # Preserve table order for SQLite's final ORDER BY ties in the local viewer.
         acrostics = packed(db, 'acrostic_results', ACRO_COLUMNS, order=' ORDER BY rowid')
+        shapes = gamma_matches(db, acrostics)
         isopsephy = packed(db, 'isopsephy_results', ISO_COLUMNS, order=' ORDER BY edition_id,poem,group_size')
         editions = {}
         passage_count = 0
@@ -64,7 +90,8 @@ def build(destination, database=None, revision=None):
                     'snapshot_sha256': digest, 'acrostics': len(acrostics['rows']),
                     'isopsephy': len(isopsephy['rows']), 'passages': passage_count,
                     'editions': len(editions), 'positions': [r[0] for r in db.execute('SELECT position FROM frequency_runs ORDER BY position')]}
-        json_file(data / 'index.json', {'acrostics': acrostics, 'isopsephy': isopsephy, 'editions': editions})
+        json_file(data / 'index.json', {'acrostics': acrostics, 'isopsephy': isopsephy,
+                                        'gamma_matches': shapes, 'editions': editions})
         json_file(destination / 'attribution.json', {'repositories': repos, 'editions': editions,
                   'text_license': 'https://creativecommons.org/licenses/by-sa/4.0/',
                   'changes': 'Selected TEI readings and extracted passages; normalized Greek letters and research annotations added. See methods.html.'})
