@@ -46,8 +46,8 @@ fs.mkdirSync(out,{recursive:true});
      const letters=(await page.locator('#detail .letter-path').allTextContents()).map(normalized);
      assert.equal(letters.length,lines.length);
      assert.equal((direction==='reverse'?letters.slice().reverse():letters).join(''),row.word);
-     const marks=await page.locator('#detail .letter-path').evaluateAll(ns=>ns.map(n=>({title:n.title,label:n.getAttribute('aria-label'),tag:n.tagName,underline:getComputedStyle(n).textDecorationLine})));
-     assert(marks.every(m=>m.title.startsWith('Pattern letter ')&&m.tag==='MARK'&&m.label.includes(m.title)&&m.underline.includes('underline')));
+     const marks=await page.locator('#detail .letter-path').evaluateAll(ns=>ns.map(n=>({title:n.title,description:n.getAttribute('aria-description'),hasLabel:n.hasAttribute('aria-label'),tag:n.tagName,underline:getComputedStyle(n).textDecorationLine})));
+     assert(marks.every(m=>m.title.startsWith('Pattern letter ')&&m.tag==='MARK'&&m.description===m.title&&!m.hasLabel&&m.underline.includes('underline')));
      if(mode) {
       const edge=direction==='forward'?lines.length-1:0;
       const cornerWord=sourceMap(lines[edge].text).words.at(-1).map(u=>u.letter).join('');

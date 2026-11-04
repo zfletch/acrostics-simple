@@ -58,7 +58,8 @@
       const mark = document.createElement('mark'); mark.textContent = part.text;
       mark.className = [part.vertical ? 'letter-path' : '', part.corner ? 'corner-match' : ''].filter(Boolean).join(' ');
       mark.title = [part.vertical ? `Pattern letter ${part.letter}` : '', part.corner ? 'Γ/L word match' : ''].filter(Boolean).join(' · ');
-      mark.setAttribute('aria-label', `${part.text}: ${mark.title}`);
+      // Describe the highlight without replacing the original Greek text.
+      mark.setAttribute('aria-description', mark.title);
       p.append(mark);
     }
     return p;
